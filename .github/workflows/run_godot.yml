@@ -13,12 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Install Godot
-        run: |
-          sudo snap install godot-4
-
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Cache Godot Snap / Installation & Build Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            /snap/godot-4
+            /var/lib/snapd
+            godot-chess/godot-chess/.godot
+          key: ${{ runner.os }}-godot-snap-v1-${{ hashFiles('godot-chess/godot-chess/project.godot') }}
+          restore-keys: |
+            ${{ runner.os }}-godot-snap-v1-
+
+      - name: Install Godot
+        run: |
+          sudo snap install godot-4 || sudo snap refresh godot-4
 
 
       - name: Run Godot Scene
