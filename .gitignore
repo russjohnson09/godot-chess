@@ -1,0 +1,23 @@
+# Godot-specific ignores
+.godot/
+
+# Imported assets
+.import/
+
+# Mono-specific ignores
+.mono/
+data_*/
+nupkg/
+
+# Visual Studio / VS Code / Rider
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.user
+
+# OS-specific ignores
+.DS_Store
+Thumbs.db
+Desktop.ini
