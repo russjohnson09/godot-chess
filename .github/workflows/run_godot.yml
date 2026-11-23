@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Install Godot
         run: |
           sudo snap install godot-4
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Run Godot Scene
         run: |
