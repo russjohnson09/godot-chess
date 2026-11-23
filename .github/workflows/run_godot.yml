@@ -37,13 +37,13 @@ jobs:
           cd godot-chess/godot-chess
           godot-4 --headless --quit-after 10 entry_2.tscn
 
-      # - name: Run Godot Scene
-      #   run: |
-      #     cd godot-chess/godot-chess
-      #     godot-4 --write-movie output_entry2.avi --fixed-fps 60 --headless --quit-after 60 entry_2.tscn
+      - name: Run Godot Scene
+        run: |
+          cd godot-chess/godot-chess
+          godot-4 --write-movie output_entry2.avi --fixed-fps 60 --headless --quit-after 10 entry_2.tscn
 
-      # - name: Upload Recording Artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: output-entry2-recording
-      #     path: godot-chess/godot-chess/output_entry2.avi
+      - name: Upload Recording Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-entry2-recording
+          path: godot-chess/godot-chess/output_entry2.avi
