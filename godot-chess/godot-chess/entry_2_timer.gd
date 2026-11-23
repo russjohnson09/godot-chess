@@ -5,6 +5,7 @@ extends Node2D
 @onready var icon1: Sprite2D = $Icon
 @onready var icon2: Sprite2D = $Icon2
 @onready var icon3: Sprite2D = $Icon3
+@onready var path_follow: PathFollow2D = $Path2D/PathFollow2D
 
 var time_passed: float = 0.0
 
@@ -17,6 +18,9 @@ func _process(delta: float) -> void:
 		icon1.rotation = sin(time_passed * 3.0) * 0.5
 		icon2.position.y = 124.0 + cos(time_passed * 4.0) * 20.0
 		icon3.scale = Vector2.ONE * (1.0 + sin(time_passed * 5.0) * 0.2)
+		
+	if path_follow:
+		path_follow.progress_ratio = fmod(time_passed * 0.3, 1.0)
 
 func _on_timer_timeout() -> void:
 	get_tree().quit()
