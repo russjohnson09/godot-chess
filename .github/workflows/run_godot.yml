@@ -10,7 +10,7 @@ on:
 jobs:
   run-godot:
     name: Run Godot Game in Headless Mode
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24
     
     steps:
       - name: Checkout Repository
@@ -29,8 +29,9 @@ jobs:
 
       - name: Install Godot & Dependencies
         run: |
-          # sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1-mesa-glx
-          sudo apt-get update && sudo apt-get install -y ffmpeg
+          sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1-mesa-glx
+          # https://github.com/Joshua-Riek/ubuntu-rockchip/issues/728
+          # sudo apt-get update && sudo apt-get install -y ffmpeg
           sudo snap install godot-4 || sudo snap refresh godot-4
 
 
