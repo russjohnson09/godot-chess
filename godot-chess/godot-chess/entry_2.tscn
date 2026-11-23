@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://3sgk3j00ba6k"]
 
 [ext_resource type="Texture2D" uid="uid://bmf82fly5jk5k" path="res://icon.svg" id="1_xj8uq"]
+[ext_resource type="Script" uid="uid://2p2mcqlffuig" path="res://entry_2_timer.gd" id="2_timer"]
 
-[node name="Entry2" type="Node2D" unique_id=1148359173]
+[node name="Entry2" type="Node2D" unique_id=398334256]
+script = ExtResource("2_timer")
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=1057944473]
 position = Vector2(133, 117)
@@ -15,3 +17,18 @@ texture = ExtResource("1_xj8uq")
 [node name="Icon3" type="Sprite2D" parent="." unique_id=286757228]
 position = Vector2(223, 296)
 texture = ExtResource("1_xj8uq")
+
+[node name="TimerLabel" type="Label" parent="." unique_id=245610819]
+offset_left = 50.0
+offset_top = 400.0
+offset_right = 250.0
+offset_bottom = 430.0
+theme_override_font_sizes/font_size = 24
+text = "Time left: 5"
+
+[node name="Timer" type="Timer" parent="." unique_id=35182353]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
