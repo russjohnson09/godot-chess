@@ -23,4 +23,4 @@ jobs:
       - name: Run Godot Scene
         run: |
           cd godot-chess/godot-chess
-          godot --headless --quit-after 10 entry_2.tscn
+          godot-4 --headless --quit-after 10 entry_2.tscn
