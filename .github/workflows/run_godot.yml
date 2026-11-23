@@ -37,6 +37,9 @@ jobs:
           cd godot-chess/godot-chess
           godot-4 --headless --quit-after 10 entry_2.tscn
 
+# Movie Maker mode enabled, recording movie in 1152×648 @ 60 FPS...
+# ERROR: Parameter "t" is null.
+#    at: texture_2d_get (./servers/rendering/dummy/storage/texture_storage.h:110)
       - name: Run Godot Scene
         run: |
           cd godot-chess/godot-chess
