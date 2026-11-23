@@ -7,23 +7,58 @@ script = ExtResource("1_script")
 
 [node name="TitleLabel" type="Label" parent="."]
 offset_left = 50.0
-offset_top = 30.0
+offset_top = 20.0
 offset_right = 450.0
-offset_bottom = 70.0
-theme_override_font_sizes/font_size = 28
-text = "Local WiFi Instances"
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+text = "Local WiFi Instances & Chat"
 
 [node name="StatusLabel" type="Label" parent="."]
 offset_left = 50.0
-offset_top = 80.0
+offset_top = 60.0
 offset_right = 500.0
-offset_bottom = 110.0
-theme_override_font_sizes/font_size = 18
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 14
 text = "Initializing..."
 
 [node name="PeersList" type="ItemList" parent="."]
 offset_left = 50.0
-offset_top = 130.0
+offset_top = 95.0
+offset_right = 300.0
+offset_bottom = 280.0
+theme_override_font_sizes/font_size = 16
+
+[node name="IpInput" type="LineEdit" parent="."]
+offset_left = 320.0
+offset_top = 95.0
+offset_right = 480.0
+offset_bottom = 135.0
+placeholder_text = "Enter IP address"
+
+[node name="ConnectButton" type="Button" parent="."]
+offset_left = 490.0
+offset_top = 95.0
 offset_right = 600.0
-offset_bottom = 450.0
-theme_override_font_sizes/font_size = 18
+offset_bottom = 135.0
+text = "Connect"
+
+[node name="ChatLog" type="TextEdit" parent="."]
+offset_left = 320.0
+offset_top = 145.0
+offset_right = 600.0
+offset_bottom = 280.0
+editable = false
+
+[node name="MessageInput" type="LineEdit" parent="."]
+offset_left = 50.0
+offset_top = 295.0
+offset_right = 480.0
+offset_bottom = 335.0
+placeholder_text = "Type message..."
+
+[node name="SendButton" type="Button" parent="."]
+offset_left = 490.0
+offset_top = 295.0
+offset_right = 600.0
+offset_bottom = 335.0
+text = "Send"
