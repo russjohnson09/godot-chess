@@ -1,5 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://b115s7kf70u6e"]
+[gd_scene format=3 uid="uid://b115s7kf70u6e"]
 
-[ext_resource type="Script" path="res://quit_timer.gd" id="1_quit"]
+[ext_resource type="Script" uid="uid://gf6on6l4nwtb" path="res://node_2d.gd" id="1_0e48y"]
+[ext_resource type="Texture2D" uid="uid://bmf82fly5jk5k" path="res://icon.svg" id="1_wtcfe"]
 
-[node name="Node2D" type="Node2D" script = ExtResource("1_quit")]
+[node name="Node2D" type="Node2D" unique_id=708269450]
+script = ExtResource("1_0e48y")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=248733965]
+position = Vector2(134, 109)
+texture = ExtResource("1_wtcfe")
