@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot Chess"
-run/main_scene="uid://b115s7kf70u6e"
+run/main_scene="uid://3sgk3j00ba6k"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
