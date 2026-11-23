@@ -1,24 +1,20 @@
 @echo off
-REM Run Godot headless or directly execute node_2d.tscn
-REM Adjust the path to godot executable if needed, or assume 'godot' is in PATH.
+REM Run Godot directly execute node_2d.tscn using environment variable with default
 
-pushd "%~dp5"
-cd /d "%~dp0godot-chess\godot-chess"
+if "%GODOT_PATH%"=="" (
+    set "GODOT_PATH=C:\Users\russj\Documents\Godot_v4.6.1-stable_win64.exe\Godot_v4.6.1-stable_win64_console.exe"
+)
 
-@REM  C:\Users\russj\Documents\Godot_v4.6.1-stable_win64.exe\Godot_v4.6.1-stable_win64_console.exe
-@REM  C:\Users\russj\Documents\Godot_v4.6.1-stable_win64.exe\Godot_v4.6.1-stable_win64.exe
+pushd "%~dp0godot-chess\godot-chess"
 
-
-REM Try standard godot command or common installation paths if needed
-where godot >nul 2>&1
-if %errorlevel% equ 0 (
-    godot node_2d.tscn
+if exist "%GODOT_PATH%" (
+    "%GODOT_PATH%" node_2d.tscn
 ) else (
-    REM Fallback to common Windows paths or prompt user
-    if exist "C:\Users\russj\Documents\Godot_v4.6.1-stable_win64.exe\Godot_v4.6.1-stable_win64_console.exe" (
-        "C:\Users\russj\Documents\Godot_v4.6.1-stable_win64.exe\Godot_v4.6.1-stable_win64_console.exe" node_2d.tscn
+    where godot >nul 2>&1
+    if %errorlevel% equ 0 (
+        godot node_2d.tscn
     ) else (
-        echo Godot executable not found in PATH or standard location. Please ensure Godot is installed and in your PATH.
+        echo Godot executable not found at "%GODOT_PATH%" or in PATH.
         pause
     )
 )
