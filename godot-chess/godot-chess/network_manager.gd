@@ -105,7 +105,7 @@ func _process(delta: float) -> void:
 				var data = client.get_data(avail)
 				if data[0] == OK:
 					var msg = data[1].get_string_from_utf8()
-					log_message("[" + client.get_connected_host() + "]: " + msg)
+					handle_incoming_message("[" + client.get_connected_host() + "]: " + msg)
 		elif status != StreamPeerTCP.STATUS_CONNECTING:
 			connected_clients.remove_at(i)
 			
@@ -119,7 +119,7 @@ func _process(delta: float) -> void:
 				var data = client_connection.get_data(avail)
 				if data[0] == OK:
 					var msg = data[1].get_string_from_utf8()
-					log_message("[" + client_connection.get_connected_host() + "]: " + msg)
+					handle_incoming_message("[" + client_connection.get_connected_host() + "]: " + msg)
 		elif c_status != StreamPeerTCP.STATUS_CONNECTING:
 			is_client_connected = false
 			log_message("Disconnected from server.")
@@ -163,9 +163,13 @@ func log_message(text: String) -> void:
 	chat_messages.append(text)
 	if chat_messages.size() > 100:
 		chat_messages.pop_front()
-	# Notify current scene if it has a listener
 	var current_scene = Engine.get_main_loop().current_scene
 	if current_scene and current_scene.has_method("on_network_log"):
 		current_scene.on_network_log(text)
-	if text.begins_with("TTT_MOVE:") and current_scene and current_scene.has_method("on_network_message"):
-		current_scene.on_network_message(text)
+
+func handle_incoming_message(msg: String) -> void:
+	log_message(msg)
+	var current_scene = Engine.get_main_loop().current_scene
+	# Can't this be handled as a signal instead?
+	if current_scene and current_scene.has_method("on_network_message"):
+		current_scene.on_network_message(msg)

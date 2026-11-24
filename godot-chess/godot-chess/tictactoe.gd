@@ -15,11 +15,17 @@ func _ready() -> void:
 		var btn = grid_container.get_child(i) as Button
 		btn.pressed.connect(func(): _on_cell_pressed(i))
 		
-	# Check if we connected as client (O) or server (X)
-	if NetworkManager.is_client_connected:
-		my_symbol = "O"
-		my_turn = false
-		status_label.text = "Connected as O. Wait for X's turn."
+	# Check if we have incoming connections (Server/X) or are connected as client (O)
+	if NetworkManager.is_client_connected or NetworkManager.connected_clients.size() > 0:
+		# If we have connected clients, we are host (X). If we are connected to someone, we are client (O).
+		if NetworkManager.is_client_connected:
+			my_symbol = "O"
+			my_turn = false
+			status_label.text = "Connected as O. Wait for X's turn."
+		else:
+			my_symbol = "X"
+			my_turn = true
+			status_label.text = "Hosting as X. Your turn!"
 	else:
 		my_symbol = "X"
 		my_turn = true
@@ -83,7 +89,22 @@ func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://wifi_scanner.tscn")
 
 func on_network_message(msg: String) -> void:
-	if msg.begins_with("TTT_MOVE:"):
+	if "TTT_MOVE:START" in msg:
+		if NetworkManager.is_client_connected:
+			my_symbol = "O"
+			my_turn = false
+			status_label.text = "Game Started! O's turn (Wait for X)."
+		else:
+			my_symbol = "X"
+			my_turn = true
+			status_label.text = "Game Started! Your turn (X)."
+		game_active = true
+		update_board_ui()
+	elif "TTT_MOVE:" in msg and not "START" in msg:
 		var parts = msg.split(":")
-		if parts.size() == 3:
-			receive_move(parts[1].to_int(), parts[2])
+		for p in parts:
+			if p.is_valid_int():
+				var idx = p.to_int()
+				var symbol = "O" if my_symbol == "X" else "X"
+				receive_move(idx, symbol)
+				break

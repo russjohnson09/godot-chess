@@ -78,7 +78,9 @@ func log_message(text: String) -> void:
 
 func on_network_log(text: String) -> void:
 	chat_log.text += text + "\n"
-	if text.begins_with("TTT_MOVE:"):
+
+func on_network_message(msg: String) -> void:
+	if msg.begins_with("TTT_MOVE:"):
 		get_tree().change_scene_to_file("res://tictactoe.tscn")
 
 func _on_play_game_pressed() -> void:
