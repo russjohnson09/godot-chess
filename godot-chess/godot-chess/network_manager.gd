@@ -75,7 +75,7 @@ func _process(delta: float) -> void:
 			var parts = pkt_str.split(":")
 			if parts.size() == 2:
 				peer_port = parts[1].to_int()
-		if not _is_local_ip(ip):
+		if not _is_local_ip(ip, peer_port):
 			var peer_key = "%s:%d" % [ip, peer_port]
 			active_peers[peer_key] = { "timestamp": Time.get_ticks_msec(), "ip": ip, "port": peer_port }
 			udp_peer.put_packet(("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer())
@@ -128,9 +128,13 @@ func _on_broadcast_timeout() -> void:
 	var packet = ("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer()
 	udp_peer.put_packet(packet)
 
-func _is_local_ip(ip: String) -> bool:
+func _is_local_ip(ip: String, peer_port: int) -> bool:
 	var local_ips = IP.get_local_addresses()
-	return ip in local_ips or ip == "127.0.0.1" or ip == "::1"
+	var is_local_addr = ip in local_ips or ip == "127.0.0.1" or ip == "::1"
+	if not is_local_addr:
+		return false
+	# Only exclude if it is an exact match on our TCP IP and port
+	return peer_port == actual_port_tcp
 
 func send_message(msg: String) -> bool:
 	var data = msg.to_utf8_buffer()
