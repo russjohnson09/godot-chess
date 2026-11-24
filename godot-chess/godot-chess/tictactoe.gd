@@ -17,7 +17,6 @@ func _ready() -> void:
 		
 	# Check if we have incoming connections (Server/X) or are connected as client (O)
 	if NetworkManager.is_client_connected or NetworkManager.connected_clients.size() > 0:
-		# If we have connected clients, we are host (X). If we are connected to someone, we are client (O).
 		if NetworkManager.is_client_connected:
 			my_symbol = "O"
 			my_turn = false
@@ -30,6 +29,25 @@ func _ready() -> void:
 		my_symbol = "X"
 		my_turn = true
 		status_label.text = "Hosting as X. Your turn!"
+	
+	# Set custom cursor sprite
+	var cursor_scene = load("res://ui/tic_tac_toe_x.tscn") if my_symbol == "X" else load("res://ui/tic_tac_toe_o.tscn")
+	if cursor_scene:
+		var cursor_node = cursor_scene.instantiate()
+		# Create an image texture from the sprite or set custom mouse cursor if applicable, 
+		# or track mouse position for a custom sprite cursor.
+		# Godot supports Input.set_custom_mouse_cursor from an Image texture.
+		if cursor_node is Sprite2D and cursor_node.texture:
+			var img = cursor_node.texture.get_image()
+			var rect = cursor_node.region_rect
+			if rect.size.x > 0 and rect.size.y > 0:
+				var region_img = img.get_region(rect)
+				var tex = ImageTexture.create_from_image(region_img)
+				Input.set_custom_mouse_cursor(tex, Input.CURSOR_ARROW, Vector2(tex.get_width() / 2, tex.get_height() / 2))
+			else:
+				var tex = ImageTexture.create_from_image(img)
+				Input.set_custom_mouse_cursor(tex, Input.CURSOR_ARROW, Vector2(tex.get_width() / 2, tex.get_height() / 2))
+
 	game_active = true
 	update_board_ui()
 
@@ -86,6 +104,7 @@ func check_game_state() -> void:
 		status_label.text = "It's a Draw!"
 
 func _on_back_pressed() -> void:
+	Input.set_custom_mouse_cursor(null)
 	get_tree().change_scene_to_file("res://wifi_scanner.tscn")
 
 func on_network_message(msg: String) -> void:
