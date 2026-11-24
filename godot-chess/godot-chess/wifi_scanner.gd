@@ -7,6 +7,7 @@ extends Node2D
 @onready var connect_btn: Button = $ConnectButton
 @onready var msg_input: LineEdit = $MessageInput
 @onready var send_btn: Button = $SendButton
+@onready var play_game_btn: Button = $PlayGameButton
 @onready var chat_log: TextEdit = $ChatLog
 
 func _ready() -> void:
@@ -28,6 +29,7 @@ func _ready() -> void:
 	
 	connect_btn.pressed.connect(_on_connect_pressed)
 	send_btn.pressed.connect(_on_send_pressed)
+	play_game_btn.pressed.connect(_on_play_game_pressed)
 	peers_list.item_selected.connect(_on_peer_selected)
 
 func _process(delta: float) -> void:
@@ -59,3 +61,9 @@ func log_message(text: String) -> void:
 
 func on_network_log(text: String) -> void:
 	chat_log.text += text + "\n"
+	if text.begins_with("TTT_MOVE:"):
+		get_tree().change_scene_to_file("res://tictactoe.tscn")
+
+func _on_play_game_pressed() -> void:
+	NetworkManager.send_message("TTT_MOVE:START")
+	get_tree().change_scene_to_file("res://tictactoe.tscn")

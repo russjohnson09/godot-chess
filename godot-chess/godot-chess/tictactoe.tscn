@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://tttsceneuid01"]
+
+[ext_resource type="Script" uid="uid://tttscriptuid01" path="res://tictactoe.gd" id="1_script"]
+
+[node name="TicTacToe" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="TitleLabel" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 350.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+text = "Network Tic-Tac-Toe"
+
+[node name="StatusLabel" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 60.0
+offset_right = 450.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 16
+text = "Initializing..."
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = 50.0
+offset_top = 110.0
+offset_right = 350.0
+offset_bottom = 410.0
+columns = 3
+
+[node name="Cell0" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="Cell1" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="Cell2" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="Cell3" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="Cell4" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="Cell5" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="Cell6" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="Cell7" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="Cell8" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(95, 95)
+theme_override_font_sizes/font_size = 36
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 50.0
+offset_top = 430.0
+offset_right = 150.0
+offset_bottom = 470.0
+text = "Back"

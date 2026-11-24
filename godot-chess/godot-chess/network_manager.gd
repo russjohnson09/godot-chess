@@ -146,3 +146,5 @@ func log_message(text: String) -> void:
 	var current_scene = Engine.get_main_loop().current_scene
 	if current_scene and current_scene.has_method("on_network_log"):
 		current_scene.on_network_log(text)
+	if text.begins_with("TTT_MOVE:") and current_scene and current_scene.has_method("on_network_message"):
+		current_scene.on_network_message(text)

@@ -70,3 +70,11 @@ offset_top = 295.0
 offset_right = 600.0
 offset_bottom = 335.0
 text = "Send"
+
+[node name="PlayGameButton" type="Button" parent="." unique_id=987654321]
+offset_left = 610.0
+offset_top = 95.0
+offset_right = 730.0
+offset_bottom = 135.0
+text = "Play Tic-Tac-Toe"
+
