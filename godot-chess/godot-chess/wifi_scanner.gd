@@ -10,6 +10,7 @@ extends Node2D
 @onready var play_game_btn: Button = $PlayGameButton
 @onready var chat_log: TextEdit = $ChatLog
 @onready var my_ip_label: Label = $MyIpLabel
+@onready var udp_server_label: Label = $UdpServerLabel
 
 func _ready() -> void:
 	if OS.has_feature("android"):
@@ -33,6 +34,7 @@ func _ready() -> void:
 			valid_ip = ip
 			break
 	my_ip_label.text = "My Server IP & Port: %s:%d" % [valid_ip, NetworkManager.actual_port_tcp]
+	udp_server_label.text = "UDP Server Port: %d (Active)" % NetworkManager.actual_port_udp
 	
 	# Restore chat log history
 	chat_log.text = "".join(NetworkManager.chat_messages)
