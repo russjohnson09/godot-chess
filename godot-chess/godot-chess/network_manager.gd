@@ -135,11 +135,18 @@ func _process(delta: float) -> void:
 			log_message("Disconnected from server.")
 
 func _on_broadcast_timeout() -> void:
-	var msg = "GODOT_CHESS_PEER:%d" % actual_port_tcp
-	print("broadcast timeout", msg)
-	var packet = msg.to_ascii_buffer()
+	# TODO simplify this.
+	# UDP server	A program listening on a UDP port for incoming datagrams
+	# Peer	A remote sender identified by its IP address and port
+
+	# I should really only be using this for discoverability.
+	# Once a host is established it can handle one or more clients and all communication going forward is via tcp.
+	var packet = ("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer()
+	udp_peer.set_dest_address("255.255.255.255", PORT_UDP)
 	udp_peer.put_packet(packet)
-	print("successful broadcast")
+	if actual_port_udp != PORT_UDP:
+		udp_peer.set_dest_address("255.255.255.255", actual_port_udp)
+		udp_peer.put_packet(packet)
 
 func _is_local_ip(ip: String, peer_port: int) -> bool:
 	var local_ips = IP.get_local_addresses()
