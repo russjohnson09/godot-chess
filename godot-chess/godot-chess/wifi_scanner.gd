@@ -50,7 +50,7 @@ func _on_connect_pressed() -> void:
 	if parts.size() == 2:
 		NetworkManager.connect_to_peer(parts[0], parts[1].to_int())
 	else:
-		NetworkManager.connect_to_peer(target, NetworkManager.PORT_TCP)
+		NetworkManager.connect_to_peer(target, NetworkManager.actual_port_tcp)
 
 func _on_send_pressed() -> void:
 	var msg = msg_input.text

@@ -16,6 +16,8 @@ const BROADCAST_INTERVAL = 2.0
 
 var chat_messages := [] # Array of Strings
 
+var actual_port_tcp = PORT_TCP
+
 func _ready() -> void:
 	# Check and request missing Android permissions
 	if OS.has_feature("android"):
@@ -38,9 +40,15 @@ func _ready() -> void:
 		
 	var tcp_err = tcp_server.listen(PORT_TCP)
 	if tcp_err != OK:
-		print("NetworkManager: Error listening on TCP port %d (Code: %d)" % [PORT_TCP, tcp_err])
+		print("NetworkManager: TCP port %d in use, trying %d..." % [PORT_TCP, PORT_TCP + 1])
+		actual_port_tcp = PORT_TCP + 1
+		tcp_err = tcp_server.listen(actual_port_tcp)
+		if tcp_err != OK:
+			print("NetworkManager: Error listening on TCP port %d (Code: %d)" % [actual_port_tcp, tcp_err])
+		else:
+			print("NetworkManager: TCP Server listening on port %d" % actual_port_tcp)
 	else:
-		print("NetworkManager: TCP Server listening on port %d" % PORT_TCP)
+		print("NetworkManager: TCP Server listening on port %d" % actual_port_tcp)
 		
 	broadcast_timer.wait_time = BROADCAST_INTERVAL
 	broadcast_timer.autostart = true
@@ -63,7 +71,7 @@ func _process(delta: float) -> void:
 				peer_port = parts[1].to_int()
 		if not _is_local_ip(ip):
 			active_peers[ip] = { "timestamp": Time.get_ticks_msec(), "port": peer_port }
-			udp_peer.put_packet(("GODOT_CHESS_PEER:%d" % PORT_TCP).to_ascii_buffer())
+			udp_peer.put_packet(("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer())
 		
 	var current_time = Time.get_ticks_msec()
 	var stale_ips = []
@@ -110,7 +118,7 @@ func _process(delta: float) -> void:
 			log_message("Disconnected from server.")
 
 func _on_broadcast_timeout() -> void:
-	var packet = ("GODOT_CHESS_PEER:%d" % PORT_TCP).to_ascii_buffer()
+	var packet = ("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer()
 	udp_peer.put_packet(packet)
 
 func _is_local_ip(ip: String) -> bool:
