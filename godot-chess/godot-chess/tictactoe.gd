@@ -5,6 +5,9 @@ var my_turn = false
 var my_symbol = "X"
 var game_active = false
 
+var opponent_cursor_sprite: Sprite2D = null
+var cursor_send_timer := 0.0
+
 @onready var status_label: Label = $StatusLabel
 @onready var grid_container: GridContainer = $GridContainer
 @onready var back_button: Button = $BackButton
@@ -50,6 +53,24 @@ func _ready() -> void:
 
 	game_active = true
 	update_board_ui()
+	
+	# Instantiate opponent cursor sprite
+	var opp_scene = load("res://ui/tic_tac_toe_o.tscn") if my_symbol == "X" else load("res://ui/tic_tac_toe_x.tscn")
+	if opp_scene:
+		opponent_cursor_sprite = opp_scene.instantiate() as Sprite2D
+		opponent_cursor_sprite.modulate = Color(1, 1, 1, 0.6) # Slightly transparent
+		opponent_cursor_sprite.visible = false
+		add_child(opponent_cursor_sprite)
+
+func _process(delta: float) -> void:
+	if not game_active:
+		return
+	cursor_send_timer += delta
+	if cursor_send_timer >= 0.05: # Send cursor position every 50ms
+		cursor_send_timer = 0.0
+		var pos = get_viewport().get_mouse_position()
+		var msg = "TTT_CURSOR:%.1f:%.1f" % [pos.x, pos.y]
+		NetworkManager.send_message(msg)
 
 func _on_cell_pressed(index: int) -> void:
 	if not game_active:
@@ -119,6 +140,13 @@ func on_network_message(msg: String) -> void:
 			status_label.text = "Game Started! Your turn (X)."
 		game_active = true
 		update_board_ui()
+	elif "TTT_CURSOR:" in msg:
+		var parts = msg.split(":")
+		if parts.size() >= 3 and opponent_cursor_sprite:
+			var cx = parts[1].to_float()
+			var cy = parts[2].to_float()
+			opponent_cursor_sprite.position = Vector2(cx, cy)
+			opponent_cursor_sprite.visible = true
 	elif "TTT_MOVE:" in msg and not "START" in msg:
 		var parts = msg.split(":")
 		for p in parts:
