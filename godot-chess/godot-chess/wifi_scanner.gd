@@ -30,9 +30,14 @@ func _ready() -> void:
 	var local_ips = IP.get_local_addresses()
 	var valid_ip = "127.0.0.1"
 	for ip in local_ips:
-		if not ip.contains(":") and not ip.begins_with("127."):
+		if not ip.contains(":") and not ip.begins_with("127.") and not ip.begins_with("172.19."):
 			valid_ip = ip
 			break
+	if valid_ip == "127.0.0.1" and local_ips.size() > 0:
+		for ip in local_ips:
+			if not ip.contains(":"):
+				valid_ip = ip
+				break
 	my_ip_label.text = "My Server IP & Port: %s:%d" % [valid_ip, NetworkManager.actual_port_tcp]
 	udp_server_label.text = "UDP Server Port: %d (Active)" % NetworkManager.actual_port_udp
 	
