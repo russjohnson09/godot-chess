@@ -10,3 +10,11 @@ https://forum.godotengine.org/t/title-udp-works-on-desktop-but-fails-on-android-
 
 
 https://docs.godotengine.org/en/stable/tutorials/networking/high_level_multiplayer.html
+
+
+If I want some more advanced multiplayer I may allow phone's as clients but a PC must be the host.
+
+
+
+I have fixed the TCP port listening issue on Android by separating the UDP and TCP ports (PORT_UDP = 8910 and PORT_TCP = 8911). 
+On Android, trying to bind both a UDP socket and a TCP server socket to the exact same port number simultaneously causes address conflicts and binding errors. Using separate ports for local discovery (UDP) and messaging/connections (TCP) resolves this.

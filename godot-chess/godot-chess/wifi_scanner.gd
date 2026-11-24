@@ -19,7 +19,8 @@ var connected_clients := [] # StreamPeerTCP
 var client_connection := StreamPeerTCP.new()
 var is_client_connected := false
 
-const PORT = 8910
+const PORT_UDP = 8910
+const PORT_TCP = 8911
 const BROADCAST_INTERVAL = 2.0
 
 func _ready() -> void:
@@ -44,15 +45,16 @@ func _ready() -> void:
 			log_message("ERROR: Required Android permissions missing: " + ", ".join(missing_perms))
 			missing_permissions_label.text = "ERROR: Required Android permissions missing: " + ", ".join(missing_perms)
 
-	if udp_server.bind(PORT) != OK:
-		status_label.text = "Error binding UDP port %d" % PORT
+	if udp_server.bind(PORT_UDP) != OK:
+		status_label.text = "Error binding UDP port %d" % PORT_UDP
 	else:
 		status_label.text = "Scanning local WiFi..."
 		
-	if tcp_server.listen(PORT) != OK:
-		log_message("Error listening on TCP port %d" % PORT)
+	var tcp_err = tcp_server.listen(PORT_TCP)
+	if tcp_err != OK:
+		log_message("Error listening on TCP port %d (Code: %d)" % [PORT_TCP, tcp_err])
 	else:
-		log_message("TCP Server listening on port %d" % PORT)
+		log_message("TCP Server listening on port %d" % PORT_TCP)
 		
 	broadcast_timer.wait_time = BROADCAST_INTERVAL
 	broadcast_timer.autostart = true
@@ -60,7 +62,7 @@ func _ready() -> void:
 	add_child(broadcast_timer)
 	
 	udp_peer.set_broadcast_enabled(true)
-	udp_peer.set_dest_address("255.255.255.255", PORT)
+	udp_peer.set_dest_address("255.255.255.255", PORT_UDP)
 	
 	connect_btn.pressed.connect(_on_connect_pressed)
 	send_btn.pressed.connect(_on_send_pressed)
@@ -142,7 +144,7 @@ func _on_connect_pressed() -> void:
 		return
 	log_message("Connecting to " + target_ip + "...")
 	client_connection.disconnect_from_host()
-	var err = client_connection.connect_to_host(target_ip, PORT)
+	var err = client_connection.connect_to_host(target_ip, PORT_TCP)
 	if err != OK:
 		log_message("Failed to connect.")
 		is_client_connected = false
