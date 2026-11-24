@@ -18,3 +18,16 @@ If I want some more advanced multiplayer I may allow phone's as clients but a PC
 
 I have fixed the TCP port listening issue on Android by separating the UDP and TCP ports (PORT_UDP = 8910 and PORT_TCP = 8911). 
 On Android, trying to bind both a UDP socket and a TCP server socket to the exact same port number simultaneously causes address conflicts and binding errors. Using separate ports for local discovery (UDP) and messaging/connections (TCP) resolves this.
+
+
+
+Harmful app:
+
+I would need to pass this through the app store to get it verified. I trust the developer in this case because it is myself but yes opening up an internet connection is a big ask.
+
+This is a standard behavior on Android and Windows (via Google Play Protect / Windows Defender / SmartScreen) when sideloading custom-compiled APKs:
+1. Unsigned / Debug Keystore: Because the APK is compiled locally using a debug/test keystore rather than signed by an official recognized publisher certificate on the Google Play Store, Android Play Protect flags it as an "Unknown app" or "Harmful app".
+2. Internet Permission: When an app that requests INTERNET permission is sideloaded without store verification, operating systems treat network communication capabilities with higher scrutiny.
+How to Bypass / Install the APK on Your Android Device:
+- On Android (Play Protect Prompt): Tap "More details" (or Install anyway / Details), then tap "Install anyway" (or Install) to proceed.
+- Disable Play Protect Temporarily (Optional): Open the Google Play Store app on your phone > tap your profile icon > Play Protect > settings gear icon > turn off Scan apps with Play Protect while installing your build.
