@@ -16,6 +16,7 @@ const BROADCAST_INTERVAL = 2.0
 
 var chat_messages := [] # Array of Strings
 
+var actual_port_udp = PORT_UDP
 var actual_port_tcp = PORT_TCP
 
 func _ready() -> void:
@@ -34,9 +35,14 @@ func _ready() -> void:
 			OS.request_permission(perm)
 
 	if udp_server.bind(PORT_UDP) != OK:
-		print("NetworkManager: Error binding UDP port %d" % PORT_UDP)
+		print("NetworkManager: UDP port %d in use, trying 9910..." % PORT_UDP)
+		actual_port_udp = 9910
+		if udp_server.bind(actual_port_udp) != OK:
+			print("NetworkManager: Error binding UDP port %d" % actual_port_udp)
+		else:
+			print("NetworkManager: Bound UDP port %d" % actual_port_udp)
 	else:
-		print("NetworkManager: Bound UDP port %d" % PORT_UDP)
+		print("NetworkManager: Bound UDP port %d" % actual_port_udp)
 		
 	var tcp_err = tcp_server.listen(PORT_TCP)
 	if tcp_err != OK:
@@ -56,7 +62,7 @@ func _ready() -> void:
 	add_child(broadcast_timer)
 	
 	udp_peer.set_broadcast_enabled(true)
-	udp_peer.set_dest_address("255.255.255.255", PORT_UDP)
+	udp_peer.set_dest_address("255.255.255.255", actual_port_udp)
 
 func _process(delta: float) -> void:
 	# UDP Discovery handling
