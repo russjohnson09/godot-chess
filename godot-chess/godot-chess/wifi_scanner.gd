@@ -22,6 +22,25 @@ const PORT = 8910
 const BROADCAST_INTERVAL = 2.0
 
 func _ready() -> void:
+	# Check and request missing Android permissions
+	if OS.has_feature("android"):
+		var required_perms = [
+			"android.permission.INTERNET",
+			"android.permission.ACCESS_NETWORK_STATE",
+			"android.permission.ACCESS_WIFI_STATE",
+			"android.permission.CHANGE_WIFI_STATE",
+			"android.permission.CHANGE_WIFI_MULTICAST_STATE",
+			"android.permission.ACCESS_COARSE_LOCATION",
+			"android.permission.ACCESS_FINE_LOCATION"
+		]
+		var missing_perms = []
+		for perm in required_perms:
+			if not OS.request_permission(perm):
+				missing_perms.append(perm)
+		if missing_perms.size() > 0:
+			status_label.text = "Error: Missing permissions!"
+			log_message("ERROR: Required Android permissions missing: " + ", ".join(missing_perms))
+
 	if udp_server.listen(PORT) != OK:
 		status_label.text = "Error listening on UDP port %d" % PORT
 	else:
