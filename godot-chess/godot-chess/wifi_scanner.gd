@@ -35,17 +35,22 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	peers_list.clear()
 	for ip in NetworkManager.active_peers:
-		peers_list.add_item(ip)
+		var peer_data = NetworkManager.active_peers[ip]
+		peers_list.add_item("%s:%d" % [ip, peer_data["port"]])
 
 func _on_peer_selected(index: int) -> void:
-	var ip = peers_list.get_item_text(index)
-	ip_input.text = ip
+	var text = peers_list.get_item_text(index)
+	ip_input.text = text
 
 func _on_connect_pressed() -> void:
-	var target_ip = ip_input.text.strip_edges()
-	if target_ip == "":
+	var target = ip_input.text.strip_edges()
+	if target == "":
 		return
-	NetworkManager.connect_to_peer(target_ip)
+	var parts = target.split(":")
+	if parts.size() == 2:
+		NetworkManager.connect_to_peer(parts[0], parts[1].to_int())
+	else:
+		NetworkManager.connect_to_peer(target, NetworkManager.PORT_TCP)
 
 func _on_send_pressed() -> void:
 	var msg = msg_input.text

@@ -55,14 +55,20 @@ func _process(delta: float) -> void:
 	while udp_server.get_available_packet_count() > 0:
 		var pkt = udp_server.get_packet()
 		var ip = udp_server.get_packet_ip()
+		var pkt_str = pkt.get_string_from_utf8()
+		var peer_port = PORT_TCP
+		if pkt_str.begins_with("GODOT_CHESS_PEER"):
+			var parts = pkt_str.split(":")
+			if parts.size() == 2:
+				peer_port = parts[1].to_int()
 		if not _is_local_ip(ip):
-			active_peers[ip] = Time.get_ticks_msec()
-			udp_peer.put_packet("GODOT_CHESS_PEER".to_ascii_buffer())
+			active_peers[ip] = { "timestamp": Time.get_ticks_msec(), "port": peer_port }
+			udp_peer.put_packet(("GODOT_CHESS_PEER:%d" % PORT_TCP).to_ascii_buffer())
 		
 	var current_time = Time.get_ticks_msec()
 	var stale_ips = []
 	for ip in active_peers:
-		if current_time - active_peers[ip] > 6000:
+		if current_time - active_peers[ip]["timestamp"] > 6000:
 			stale_ips.append(ip)
 	for ip in stale_ips:
 		active_peers.erase(ip)
@@ -104,7 +110,7 @@ func _process(delta: float) -> void:
 			log_message("Disconnected from server.")
 
 func _on_broadcast_timeout() -> void:
-	var packet = "GODOT_CHESS_PEER".to_ascii_buffer()
+	var packet = ("GODOT_CHESS_PEER:%d" % PORT_TCP).to_ascii_buffer()
 	udp_peer.put_packet(packet)
 
 func _is_local_ip(ip: String) -> bool:
@@ -128,10 +134,10 @@ func send_message(msg: String) -> bool:
 		log_message("[Me]: " + msg)
 	return sent
 
-func connect_to_peer(target_ip: String) -> void:
-	log_message("Connecting to " + target_ip + "...")
+func connect_to_peer(target_ip: String, port: int) -> void:
+	log_message("Connecting to " + target_ip + ":" + str(port) + "...")
 	client_connection.disconnect_from_host()
-	var err = client_connection.connect_to_host(target_ip, PORT_TCP)
+	var err = client_connection.connect_to_host(target_ip, port)
 	if err != OK:
 		log_message("Failed to connect.")
 		is_client_connected = false
