@@ -84,7 +84,7 @@ text = "Back"
 
 [node name="TicTacToeX" parent="." unique_id=1048819103 instance=ExtResource("2_l32y1")]
 visible = false
-position = Vector2(674, 80.000015)
+position = Vector2(658, 103)
 
 [node name="TicTacToeO" parent="." unique_id=722831568 instance=ExtResource("3_05mec")]
 visible = false
