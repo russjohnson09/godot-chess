@@ -6,6 +6,7 @@ var my_symbol = "X"
 var game_active = false
 
 var opponent_cursor_sprite: Sprite2D = null
+var debug_black_square: ColorRect = null
 var cursor_send_timer := 0.0
 
 @onready var status_label: Label = $StatusLabel
@@ -61,6 +62,14 @@ func _ready() -> void:
 		opponent_cursor_sprite.modulate = Color(1, 1, 1, 0.6) # Slightly transparent
 		opponent_cursor_sprite.visible = false
 		add_child(opponent_cursor_sprite)
+		
+	# Instantiate debug black square
+	debug_black_square = ColorRect.new()
+	debug_black_square.size = Vector2(8, 8)
+	debug_black_square.size = Vector2(28, 28)
+	debug_black_square.color = Color(0, 0, 0, 1)
+	debug_black_square.visible = false
+	add_child(debug_black_square)
 
 func _process(delta: float) -> void:
 	if not game_active:
@@ -68,9 +77,24 @@ func _process(delta: float) -> void:
 	cursor_send_timer += delta
 	if cursor_send_timer >= 0.05: # Send cursor position every 50ms
 		cursor_send_timer = 0.0
-		var pos = get_viewport().get_mouse_position()
-		var msg = "TTT_CURSOR:%.1f:%.1f" % [pos.x, pos.y]
+		var norm_pos = get_normalized_mouse_position()
+		$MousePos.text = str(norm_pos)
+		if debug_black_square:
+			debug_black_square.position = norm_pos
+			debug_black_square.visible = true
+		var msg = "TTT_CURSOR:%.4f:%.4f" % [norm_pos.x, norm_pos.y]
+		
+		$MousePos.text = msg
 		NetworkManager.send_message(msg)
+
+func get_normalized_mouse_position() -> Vector2:
+	var vp = get_viewport()
+	var mouse_pos = vp.get_mouse_position()
+	return mouse_pos
+	#var vp_size = vp.get_visible_rect().size
+	#if vp_size.x > 0 and vp_size.y > 0:
+		#return Vector2(clamp(mouse_pos.x / vp_size.x, 0.0, 1.0), clamp(mouse_pos.y / vp_size.y, 0.0, 1.0))
+	#return Vector2.ZERO
 
 func _on_cell_pressed(index: int) -> void:
 	if not game_active:
@@ -140,13 +164,26 @@ func on_network_message(msg: String) -> void:
 			status_label.text = "Game Started! Your turn (X)."
 		game_active = true
 		update_board_ui()
+#		[ip_address]: TTT_CURSOR:x_pos:y_pos
 	elif "TTT_CURSOR:" in msg:
-		var parts = msg.split(":")
-		if parts.size() >= 3 and opponent_cursor_sprite:
-			var cx = parts[1].to_float()
-			var cy = parts[2].to_float()
-			opponent_cursor_sprite.position = Vector2(cx, cy)
-			opponent_cursor_sprite.visible = true
+		var tt_cursor_message = str(msg.split("TTT_CURSOR:")[1])
+		#print(tt_cursor_message)
+		var parts = tt_cursor_message.split(":")
+		#if parts.size() >= 3:
+		var nx = parts[0].to_float()
+		var ny = parts[1].to_float()
+		var pos = Vector2(nx,ny)
+		opponent_cursor_sprite.position = pos
+		opponent_cursor_sprite.visible = true
+		
+		$MousePos2.text = str(pos)
+		$MousePos2.text = str(msg)
+		#var vp_size = get_viewport().get_visible_rect().size
+		#var abs_pos = Vector2(nx * vp_size.x, ny * vp_size.y)
+		#if opponent_cursor_sprite:
+			#opponent_cursor_sprite.position = abs_pos
+			#opponent_cursor_sprite.visible = true
+
 	elif "TTT_MOVE:" in msg and not "START" in msg:
 		var parts = msg.split(":")
 		for p in parts:

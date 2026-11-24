@@ -89,3 +89,19 @@ position = Vector2(658, 103)
 [node name="TicTacToeO" parent="." unique_id=722831568 instance=ExtResource("3_05mec")]
 visible = false
 position = Vector2(686, 206)
+
+[node name="MousePos" type="Label" parent="." unique_id=486739056]
+offset_left = 549.0
+offset_top = 400.0
+offset_right = 849.0
+offset_bottom = 434.0
+theme_override_font_sizes/font_size = 24
+text = "Network Tic-Tac-Toe"
+
+[node name="MousePos2" type="Label" parent="." unique_id=1189130727]
+offset_left = 551.0
+offset_top = 458.0
+offset_right = 851.0
+offset_bottom = 492.0
+theme_override_font_sizes/font_size = 24
+text = "Network Tic-Tac-Toe"
