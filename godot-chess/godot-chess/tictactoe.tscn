@@ -1,11 +1,13 @@
-[gd_scene format=3 uid="uid://isgd3141hy77"]
+[gd_scene format=3 uid="uid://dcgvtffcgjl4b"]
 
-[ext_resource type="Script" uid="uid://tttscriptuid01" path="res://tictactoe.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cu5lok5vlw0uc" path="res://tictactoe.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://e1st17smgdkn" path="res://ui/tic_tac_toe_x.tscn" id="2_l32y1"]
+[ext_resource type="PackedScene" uid="uid://cy12lt33s6633" path="res://ui/tic_tac_toe_o.tscn" id="3_05mec"]
 
-[node name="TicTacToe" type="Node2D"]
+[node name="TicTacToe" type="Node2D" unique_id=1369918511]
 script = ExtResource("1_script")
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="." unique_id=2017275092]
 offset_left = 50.0
 offset_top = 20.0
 offset_right = 350.0
@@ -13,7 +15,7 @@ offset_bottom = 50.0
 theme_override_font_sizes/font_size = 24
 text = "Network Tic-Tac-Toe"
 
-[node name="StatusLabel" type="Label" parent="."]
+[node name="StatusLabel" type="Label" parent="." unique_id=694606744]
 offset_left = 50.0
 offset_top = 60.0
 offset_right = 450.0
@@ -21,52 +23,69 @@ offset_bottom = 90.0
 theme_override_font_sizes/font_size = 16
 text = "Initializing..."
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1206580068]
 offset_left = 50.0
 offset_top = 110.0
 offset_right = 350.0
 offset_bottom = 410.0
 columns = 3
 
-[node name="Cell0" type="Button" parent="GridContainer"]
+[node name="Cell0" type="Button" parent="GridContainer" unique_id=1390873431]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="Cell1" type="Button" parent="GridContainer"]
+[node name="Cell1" type="Button" parent="GridContainer" unique_id=1346461364]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="Cell2" type="Button" parent="GridContainer"]
+[node name="Cell2" type="Button" parent="GridContainer" unique_id=1965735705]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="Cell3" type="Button" parent="GridContainer"]
+[node name="Cell3" type="Button" parent="GridContainer" unique_id=928976301]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="Cell4" type="Button" parent="GridContainer"]
+[node name="Cell4" type="Button" parent="GridContainer" unique_id=324036895]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="Cell5" type="Button" parent="GridContainer"]
+[node name="Cell5" type="Button" parent="GridContainer" unique_id=1746562523]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="Cell6" type="Button" parent="GridContainer"]
+[node name="Cell6" type="Button" parent="GridContainer" unique_id=110726855]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="Cell7" type="Button" parent="GridContainer"]
+[node name="Cell7" type="Button" parent="GridContainer" unique_id=692991794]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="Cell8" type="Button" parent="GridContainer"]
+[node name="Cell8" type="Button" parent="GridContainer" unique_id=1930655327]
 custom_minimum_size = Vector2(95, 95)
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 
-[node name="BackButton" type="Button" parent="."]
+[node name="BackButton" type="Button" parent="." unique_id=1094754232]
 offset_left = 50.0
 offset_top = 430.0
 offset_right = 150.0
 offset_bottom = 470.0
 text = "Back"
+
+[node name="TicTacToeX" parent="." unique_id=1048819103 instance=ExtResource("2_l32y1")]
+visible = false
+position = Vector2(674, 80.000015)
+
+[node name="TicTacToeO" parent="." unique_id=722831568 instance=ExtResource("3_05mec")]
+visible = false
+position = Vector2(686, 206)
