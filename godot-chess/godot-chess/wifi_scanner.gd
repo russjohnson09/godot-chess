@@ -9,6 +9,7 @@ extends Node2D
 @onready var send_btn: Button = $SendButton
 @onready var play_game_btn: Button = $PlayGameButton
 @onready var chat_log: TextEdit = $ChatLog
+@onready var my_ip_label: Label = $MyIpLabel
 
 func _ready() -> void:
 	if OS.has_feature("android"):
@@ -23,6 +24,15 @@ func _ready() -> void:
 			missing_permissions_label.text = ""
 
 	status_label.text = "Scanning local WiFi..."
+	
+	# Display local IP and port
+	var local_ips = IP.get_local_addresses()
+	var valid_ip = "127.0.0.1"
+	for ip in local_ips:
+		if not ip.contains(":") and not ip.begins_with("127."):
+			valid_ip = ip
+			break
+	my_ip_label.text = "My Server IP & Port: %s:%d" % [valid_ip, NetworkManager.actual_port_tcp]
 	
 	# Restore chat log history
 	chat_log.text = "".join(NetworkManager.chat_messages)
