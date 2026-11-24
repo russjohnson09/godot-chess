@@ -16,7 +16,7 @@ var connected_clients := [] # StreamPeerTCP
 var client_connection := StreamPeerTCP.new()
 var is_client_connected := false
 
-const PORT_UDP = 8910
+const PORT_UDP = 9910
 const PORT_TCP = 8911
 const BROADCAST_INTERVAL = 2.0
 
@@ -39,38 +39,38 @@ func _ready() -> void:
 		]
 		for perm in required_perms:
 			OS.request_permission(perm)
-
-	if udp_server.bind(PORT_UDP) != OK:
-		print("NetworkManager: UDP port %d in use, trying 9910..." % PORT_UDP)
-		actual_port_udp = 9910
-		if udp_server.bind(actual_port_udp) != OK:
-			print("NetworkManager: Error binding UDP port %d" % actual_port_udp)
-		else:
-			print("NetworkManager: Bound UDP port %d" % actual_port_udp)
-	else:
-		print("NetworkManager: Bound UDP port %d" % actual_port_udp)
+	
+	var udp_success = false
+	while not udp_success and actual_port_udp < 9915:
+		udp_success = udp_server.bind(actual_port_udp) == OK
+		if not udp_success:
+			actual_port_udp += 1
 		
-	var tcp_err = tcp_server.listen(PORT_TCP)
-	if tcp_err != OK:
-		print("NetworkManager: TCP port %d in use, trying %d..." % [PORT_TCP, PORT_TCP + 1])
-
-		# TCPServer.get_local_port() returns the port the server is listening on; it does not return an IP address. Use IP.get_local_addresses() to inspect local addresses
-		actual_port_tcp = PORT_TCP + 1
-		tcp_err = tcp_server.listen(actual_port_tcp, "0.0.0.0")
-		if tcp_err != OK:
-			print("NetworkManager: Error listening on TCP port %d (Code: %d)" % [actual_port_tcp, tcp_err])
+	if not udp_success:
+		print("NetworkManager: failed to find open udp port for udp server")
+		actual_port_udp += 1
+		
+	var tcp_success = false
+	var test_port = PORT_TCP
+	while not tcp_success and test_port < PORT_TCP + 100:
+		var tcp_err = tcp_server.listen(test_port, "0.0.0.0")
+		if tcp_err == OK:
+			actual_port_tcp = test_port
+			tcp_success = true
+			print("NetworkManager: TCP Server listening on first available port %d" % actual_port_tcp)
 		else:
-			print("NetworkManager: TCP Server listening on port %d" % actual_port_tcp)
-	else:
-		print("NetworkManager: TCP Server listening on port %d" % actual_port_tcp)
+			test_port += 1
+	if not tcp_success:
+		print("NetworkManager: Error - No available TCP ports found!")
 		
 	broadcast_timer.wait_time = BROADCAST_INTERVAL
 	broadcast_timer.autostart = true
 	broadcast_timer.timeout.connect(_on_broadcast_timeout)
 	add_child(broadcast_timer)
 	
+	# not sure if this is required
 	udp_peer.set_broadcast_enabled(true)
-	udp_peer.set_dest_address("255.255.255.255", actual_port_udp)
+	#udp_peer.set_dest_address("255.255.255.255", actual_port_udp)
 
 func _process(delta: float) -> void:
 	# UDP Discovery handling
@@ -134,19 +134,29 @@ func _process(delta: float) -> void:
 			is_client_connected = false
 			log_message("Disconnected from server.")
 
+func _udp_send(packet_str: String):
+	for port in [9910, 9911, 9912, 9913, 9914, 9915]:
+		udp_peer.set_dest_address("255.255.255.255", port)
+		udp_peer.put_packet(packet_str.to_ascii_buffer())
+
+
 func _on_broadcast_timeout() -> void:
+	
+	_udp_send("GODOT_CHESS_PEER:%d" % actual_port_tcp)
 	# TODO simplify this.
 	# UDP server	A program listening on a UDP port for incoming datagrams
 	# Peer	A remote sender identified by its IP address and port
 
 	# I should really only be using this for discoverability.
 	# Once a host is established it can handle one or more clients and all communication going forward is via tcp.
-	var packet = ("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer()
-	udp_peer.set_dest_address("255.255.255.255", PORT_UDP)
-	udp_peer.put_packet(packet)
-	if actual_port_udp != PORT_UDP:
-		udp_peer.set_dest_address("255.255.255.255", actual_port_udp)
-		udp_peer.put_packet(packet)
+	#var packet = ("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer()
+	#udp_peer.set_dest_address("255.255.255.255", PORT_UDP)
+	#udp_peer.put_packet(packet)
+	#if actual_port_udp != PORT_UDP:
+		#udp_peer.set_dest_address("255.255.255.255", actual_port_udp)
+		#udp_peer.put_packet(packet)
+	#udp_peer.set_dest_address("255.255.255.255", 9910)
+	#udp_peer.put_packet(packet)
 
 func _is_local_ip(ip: String, peer_port: int) -> bool:
 	var local_ips = IP.get_local_addresses()
@@ -154,9 +164,9 @@ func _is_local_ip(ip: String, peer_port: int) -> bool:
 	var is_local_addr = ip in local_ips or ip == "127.0.0.1" or ip == "::1" or ip.begins_with("172.19.")
 	#if not is_local_addr:
 		#return false
-	return is_local_addr
+	#return is_local_addr
 	# Only exclude if it is an exact match on our TCP IP and port
-	#return peer_port == actual_port_tcp
+	return peer_port == actual_port_tcp
 
 func send_message(msg: String) -> bool:
 	var data = msg.to_utf8_buffer()
