@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var status_label: Label = $StatusLabel
+@onready var missing_permissions_label: Label = $MissingPermissionsLabel
 @onready var peers_list: ItemList = $PeersList
 @onready var ip_input: LineEdit = $IpInput
 @onready var connect_btn: Button = $ConnectButton
@@ -39,7 +40,9 @@ func _ready() -> void:
 				missing_perms.append(perm)
 		if missing_perms.size() > 0:
 			status_label.text = "Error: Missing permissions!"
+			
 			log_message("ERROR: Required Android permissions missing: " + ", ".join(missing_perms))
+			missing_permissions_label.text = "ERROR: Required Android permissions missing: " + ", ".join(missing_perms)
 
 	if udp_server.listen(PORT) != OK:
 		status_label.text = "Error listening on UDP port %d" % PORT
