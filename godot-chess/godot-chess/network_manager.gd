@@ -53,8 +53,10 @@ func _ready() -> void:
 	var tcp_err = tcp_server.listen(PORT_TCP)
 	if tcp_err != OK:
 		print("NetworkManager: TCP port %d in use, trying %d..." % [PORT_TCP, PORT_TCP + 1])
+
+		# TCPServer.get_local_port() returns the port the server is listening on; it does not return an IP address. Use IP.get_local_addresses() to inspect local addresses
 		actual_port_tcp = PORT_TCP + 1
-		tcp_err = tcp_server.listen(actual_port_tcp)
+		tcp_err = tcp_server.listen(actual_port_tcp, "0.0.0.0")
 		if tcp_err != OK:
 			print("NetworkManager: Error listening on TCP port %d (Code: %d)" % [actual_port_tcp, tcp_err])
 		else:
@@ -77,10 +79,12 @@ func _process(delta: float) -> void:
 		var ip = udp_server.get_packet_ip()
 		var pkt_str = pkt.get_string_from_utf8()
 		var peer_port = PORT_TCP
+		print("udp receieved ", pkt_str, " ",  ip,  " ", _is_local_ip(ip, peer_port))
 		if pkt_str.begins_with("GODOT_CHESS_PEER"):
 			var parts = pkt_str.split(":")
 			if parts.size() == 2:
 				peer_port = parts[1].to_int()
+		
 		if not _is_local_ip(ip, peer_port):
 			var peer_key = "%s:%d" % [ip, peer_port]
 			active_peers[peer_key] = { "timestamp": Time.get_ticks_msec(), "ip": ip, "port": peer_port }
@@ -131,16 +135,21 @@ func _process(delta: float) -> void:
 			log_message("Disconnected from server.")
 
 func _on_broadcast_timeout() -> void:
-	var packet = ("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer()
+	var msg = "GODOT_CHESS_PEER:%d" % actual_port_tcp
+	print("broadcast timeout", msg)
+	var packet = msg.to_ascii_buffer()
 	udp_peer.put_packet(packet)
+	print("successful broadcast")
 
 func _is_local_ip(ip: String, peer_port: int) -> bool:
 	var local_ips = IP.get_local_addresses()
+	local_ips = []
 	var is_local_addr = ip in local_ips or ip == "127.0.0.1" or ip == "::1" or ip.begins_with("172.19.")
 	if not is_local_addr:
 		return false
+	return is_local_addr
 	# Only exclude if it is an exact match on our TCP IP and port
-	return peer_port == actual_port_tcp
+	#return peer_port == actual_port_tcp
 
 func send_message(msg: String) -> bool:
 	var data = msg.to_utf8_buffer()
