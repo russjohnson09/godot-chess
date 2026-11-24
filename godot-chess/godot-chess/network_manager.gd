@@ -76,16 +76,17 @@ func _process(delta: float) -> void:
 			if parts.size() == 2:
 				peer_port = parts[1].to_int()
 		if not _is_local_ip(ip):
-			active_peers[ip] = { "timestamp": Time.get_ticks_msec(), "port": peer_port }
+			var peer_key = "%s:%d" % [ip, peer_port]
+			active_peers[peer_key] = { "timestamp": Time.get_ticks_msec(), "ip": ip, "port": peer_port }
 			udp_peer.put_packet(("GODOT_CHESS_PEER:%d" % actual_port_tcp).to_ascii_buffer())
 		
 	var current_time = Time.get_ticks_msec()
-	var stale_ips = []
-	for ip in active_peers:
-		if current_time - active_peers[ip]["timestamp"] > 6000:
-			stale_ips.append(ip)
-	for ip in stale_ips:
-		active_peers.erase(ip)
+	var stale_keys = []
+	for key in active_peers:
+		if current_time - active_peers[key]["timestamp"] > 6000:
+			stale_keys.append(key)
+	for key in stale_keys:
+		active_peers.erase(key)
 		
 	# TCP Incoming connections handling
 	if tcp_server.is_connection_available():

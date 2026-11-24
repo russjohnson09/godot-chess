@@ -46,9 +46,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	peers_list.clear()
-	for ip in NetworkManager.active_peers:
-		var peer_data = NetworkManager.active_peers[ip]
-		peers_list.add_item("%s:%d" % [ip, peer_data["port"]])
+	for key in NetworkManager.active_peers:
+		var peer_data = NetworkManager.active_peers[key]
+		peers_list.add_item("%s:%d" % [peer_data["ip"], peer_data["port"]])
 
 func _on_peer_selected(index: int) -> void:
 	var text = peers_list.get_item_text(index)
