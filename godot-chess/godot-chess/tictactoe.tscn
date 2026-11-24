@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://tttsceneuid01"]
+[gd_scene format=3 uid="uid://isgd3141hy77"]
 
 [ext_resource type="Script" uid="uid://tttscriptuid01" path="res://tictactoe.gd" id="1_script"]
 
