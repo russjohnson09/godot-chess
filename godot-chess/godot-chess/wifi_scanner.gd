@@ -28,9 +28,10 @@ func _ready() -> void:
 	
 	# Display local IP and port
 	var local_ips = IP.get_local_addresses()
+	print('local ips',local_ips)
 	var valid_ip = "127.0.0.1"
 	for ip in local_ips:
-		if not ip.contains(":") and not ip.begins_with("127.") and not ip.begins_with("172.19."):
+		if not ip.contains(":") and not ip.begins_with("127.") and not ip.begins_with("172.19.") and not ip.begins_with("169."):
 			valid_ip = ip
 			break
 	if valid_ip == "127.0.0.1" and local_ips.size() > 0:

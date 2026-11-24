@@ -93,6 +93,3 @@ offset_right = 500.0
 offset_bottom = 400.0
 theme_override_font_sizes/font_size = 14
 text = "UDP Server Port: Determining..."
-
-
-
