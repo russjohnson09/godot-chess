@@ -9,7 +9,7 @@ extends Node2D
 @onready var send_btn: Button = $SendButton
 @onready var chat_log: TextEdit = $ChatLog
 
-var udp_server := UDPServer.new()
+var udp_server := PacketPeerUDP.new()
 var udp_peer := PacketPeerUDP.new()
 var broadcast_timer := Timer.new()
 var active_peers := {} # ip -> timestamp
@@ -44,8 +44,8 @@ func _ready() -> void:
 			log_message("ERROR: Required Android permissions missing: " + ", ".join(missing_perms))
 			missing_permissions_label.text = "ERROR: Required Android permissions missing: " + ", ".join(missing_perms)
 
-	if udp_server.listen(PORT) != OK:
-		status_label.text = "Error listening on UDP port %d" % PORT
+	if udp_server.bind(PORT) != OK:
+		status_label.text = "Error binding UDP port %d" % PORT
 	else:
 		status_label.text = "Scanning local WiFi..."
 		
@@ -67,14 +67,14 @@ func _ready() -> void:
 	peers_list.item_selected.connect(_on_peer_selected)
 
 func _process(delta: float) -> void:
-	# UDP Discovery handling
-	udp_server.poll()
-	while udp_server.is_connection_available():
-		var conn := udp_server.take_connection()
-		var pkt := conn.get_packet()
-		var ip := conn.get_packet_ip()
+	# UDP Discovery handling (using PacketPeerUDP bound to port)
+	while udp_server.get_available_packet_count() > 0:
+		var pkt = udp_server.get_packet()
+		var ip = udp_server.get_packet_ip()
 		if not _is_local_ip(ip):
 			active_peers[ip] = Time.get_ticks_msec()
+			# Also respond back so the peer discovers us too
+			udp_peer.put_packet("GODOT_CHESS_PEER".to_ascii_buffer())
 		
 	var current_time = Time.get_ticks_msec()
 	var stale_ips = []
