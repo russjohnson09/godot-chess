@@ -143,10 +143,10 @@ func _on_broadcast_timeout() -> void:
 
 func _is_local_ip(ip: String, peer_port: int) -> bool:
 	var local_ips = IP.get_local_addresses()
-	local_ips = []
+	#local_ips = []
 	var is_local_addr = ip in local_ips or ip == "127.0.0.1" or ip == "::1" or ip.begins_with("172.19.")
-	if not is_local_addr:
-		return false
+	#if not is_local_addr:
+		#return false
 	return is_local_addr
 	# Only exclude if it is an exact match on our TCP IP and port
 	#return peer_port == actual_port_tcp
