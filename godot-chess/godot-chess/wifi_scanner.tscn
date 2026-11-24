@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://c0hgr27n0r0mv"]
+
+[ext_resource type="Script" uid="uid://eefcvif2gikh" path="res://wifi_scanner.gd" id="1_script"]
+
+[node name="WifiScanner" type="Node2D" unique_id=1164757979]
+script = ExtResource("1_script")
+
+[node name="MissingPermissionsLabel" type="Label" parent="." unique_id=273826954]
+offset_left = 40.0
+offset_top = 402.0
+offset_right = 546.0
+offset_bottom = 577.0
+theme_override_font_sizes/font_size = 14
+text = "Initializing..."
+
+[node name="TitleLabel" type="Label" parent="." unique_id=2036710864]
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 450.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+text = "Local WiFi Instances & Chat"
+
+[node name="StatusLabel" type="Label" parent="." unique_id=1239955933]
+offset_left = 50.0
+offset_top = 60.0
+offset_right = 500.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 14
+text = "Initializing..."
+
+[node name="PeersList" type="ItemList" parent="." unique_id=878918481]
+offset_left = 50.0
+offset_top = 95.0
+offset_right = 300.0
+offset_bottom = 280.0
+theme_override_font_sizes/font_size = 16
+
+[node name="IpInput" type="LineEdit" parent="." unique_id=1430230451]
+offset_left = 320.0
+offset_top = 95.0
+offset_right = 480.0
+offset_bottom = 135.0
+placeholder_text = "Enter IP address"
+
+[node name="ConnectButton" type="Button" parent="." unique_id=1974951312]
+offset_left = 490.0
+offset_top = 95.0
+offset_right = 600.0
+offset_bottom = 135.0
+text = "Connect"
+
+[node name="ChatLog" type="TextEdit" parent="." unique_id=285607050]
+offset_left = 320.0
+offset_top = 145.0
+offset_right = 1104.0
+offset_bottom = 280.0
+editable = false
+
+[node name="MessageInput" type="LineEdit" parent="." unique_id=1983252633]
+offset_left = 50.0
+offset_top = 295.0
+offset_right = 480.0
+offset_bottom = 335.0
+placeholder_text = "Type message..."
+
+[node name="SendButton" type="Button" parent="." unique_id=237650996]
+offset_left = 490.0
+offset_top = 295.0
+offset_right = 600.0
+offset_bottom = 335.0
+text = "Send"
+
+[node name="PlayGameButton" type="Button" parent="." unique_id=987654321]
+offset_left = 610.0
+offset_top = 95.0
+offset_right = 730.0
+offset_bottom = 135.0
+text = "Play Tic-Tac-Toe"
+
+[node name="MyIpLabel" type="Label" parent="." unique_id=567891234]
+offset_left = 50.0
+offset_top = 345.0
+offset_right = 500.0
+offset_bottom = 370.0
+theme_override_font_sizes/font_size = 14
+text = "My Server IP: Determining..."
+
+[node name="UdpServerLabel" type="Label" parent="." unique_id=998877665]
+offset_left = 50.0
+offset_top = 375.0
+offset_right = 500.0
+offset_bottom = 400.0
+theme_override_font_sizes/font_size = 14
+text = "UDP Server Port: Determining..."

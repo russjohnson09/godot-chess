@@ -1,0 +1,1 @@
+https://commons.wikimedia.org/wiki/File:Tic_tac_toe-js.svg

@@ -21,3 +21,9 @@ nupkg/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+
+*.avi
+
+
+build

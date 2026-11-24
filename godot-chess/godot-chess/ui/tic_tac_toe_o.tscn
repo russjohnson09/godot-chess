@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cy12lt33s6633"]
+
+[ext_resource type="Texture2D" uid="uid://b3itx4rkq78xt" path="res://assets/Tic_tac_toe-js.svg" id="1_1k348"]
+
+[node name="TicTacToeO" type="Sprite2D" unique_id=1048819103]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_1k348")
+region_enabled = true
+region_rect = Rect2(351.9093, 184.47949, 114.04956, 96.694214)
