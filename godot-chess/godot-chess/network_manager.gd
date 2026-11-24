@@ -113,8 +113,10 @@ func _process(delta: float) -> void:
 			if avail > 0:
 				var data = client.get_data(avail)
 				if data[0] == OK:
-					var msg = data[1].get_string_from_utf8()
-					handle_incoming_message("[" + client.get_connected_host() + "]: " + msg)
+					var full_msg = data[1].get_string_from_utf8()
+					for single_msg in full_msg.split("\n", false):
+						if single_msg.strip_edges() != "":
+							handle_incoming_message("[" + client.get_connected_host() + "]: " + single_msg)
 		elif status != StreamPeerTCP.STATUS_CONNECTING:
 			connected_clients.remove_at(i)
 			
@@ -127,8 +129,10 @@ func _process(delta: float) -> void:
 			if avail > 0:
 				var data = client_connection.get_data(avail)
 				if data[0] == OK:
-					var msg = data[1].get_string_from_utf8()
-					handle_incoming_message("[" + client_connection.get_connected_host() + "]: " + msg)
+					var full_msg = data[1].get_string_from_utf8()
+					for single_msg in full_msg.split("\n", false):
+						if single_msg.strip_edges() != "":
+							handle_incoming_message("[" + client_connection.get_connected_host() + "]: " + single_msg)
 		elif c_status != StreamPeerTCP.STATUS_CONNECTING:
 			is_client_connected = false
 			log_message("Disconnected from server.")
@@ -168,7 +172,7 @@ func _is_local_ip(ip: String, peer_port: int) -> bool:
 	return peer_port == actual_port_tcp
 
 func send_message(msg: String) -> bool:
-	var data = msg.to_utf8_buffer()
+	var data = (msg + "\n").to_utf8_buffer()
 	var sent = false
 	
 	if is_client_connected and client_connection.get_status() == StreamPeerTCP.STATUS_CONNECTED:
