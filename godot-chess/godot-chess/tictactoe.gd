@@ -6,7 +6,7 @@ var my_symbol = "X"
 var game_active = false
 
 var opponent_cursor_sprite: Sprite2D = null
-var debug_black_square: ColorRect = null
+#var debug_black_square: ColorRect = null
 var cursor_send_timer := 0.0
 
 @onready var status_label: Label = $StatusLabel
@@ -64,12 +64,12 @@ func _ready() -> void:
 		add_child(opponent_cursor_sprite)
 		
 	# Instantiate debug black square
-	debug_black_square = ColorRect.new()
-	debug_black_square.size = Vector2(8, 8)
-	debug_black_square.size = Vector2(28, 28)
-	debug_black_square.color = Color(0, 0, 0, 1)
-	debug_black_square.visible = false
-	add_child(debug_black_square)
+	#debug_black_square = ColorRect.new()
+	#debug_black_square.size = Vector2(8, 8)
+	#debug_black_square.size = Vector2(28, 28)
+	#debug_black_square.color = Color(0, 0, 0, 1)
+	#debug_black_square.visible = false
+	#add_child(debug_black_square)
 
 func _process(delta: float) -> void:
 	if not game_active:
@@ -79,9 +79,9 @@ func _process(delta: float) -> void:
 		cursor_send_timer = 0.0
 		var norm_pos = get_normalized_mouse_position()
 		$MousePos.text = str(norm_pos)
-		if debug_black_square:
-			debug_black_square.position = norm_pos
-			debug_black_square.visible = true
+		#if debug_black_square:
+			#debug_black_square.position = norm_pos
+			#debug_black_square.visible = true
 		var msg = "TTT_CURSOR:%.4f:%.4f" % [norm_pos.x, norm_pos.y]
 		
 		$MousePos.text = msg

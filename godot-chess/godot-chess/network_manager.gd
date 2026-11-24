@@ -79,7 +79,6 @@ func _process(delta: float) -> void:
 		var ip = udp_server.get_packet_ip()
 		var pkt_str = pkt.get_string_from_utf8()
 		var peer_port = PORT_TCP
-		print("udp receieved ", pkt_str, " ",  ip,  " ", _is_local_ip(ip, peer_port))
 		if pkt_str.begins_with("GODOT_CHESS_PEER"):
 			var parts = pkt_str.split(":")
 			if parts.size() == 2:
@@ -196,12 +195,13 @@ func connect_to_peer(target_ip: String, port: int) -> void:
 		is_client_connected = true
 
 func log_message(text: String) -> void:
-	chat_messages.append(text)
-	if chat_messages.size() > 100:
-		chat_messages.pop_front()
-	var current_scene = Engine.get_main_loop().current_scene
-	if current_scene and current_scene.has_method("on_network_log"):
-		current_scene.on_network_log(text)
+	pass
+	#chat_messages.append(text)
+	#if chat_messages.size() > 100:
+		#chat_messages.pop_front()
+	#var current_scene = Engine.get_main_loop().current_scene
+	#if current_scene and current_scene.has_method("on_network_log"):
+		#current_scene.on_network_log(text)
 
 func handle_incoming_message(msg: String) -> void:
 	log_message(msg)
