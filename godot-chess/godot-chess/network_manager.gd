@@ -5,6 +5,12 @@ var udp_peer := PacketPeerUDP.new()
 var broadcast_timer := Timer.new()
 var active_peers := {} # ip -> timestamp
 
+# 192.168.1.11
+#Ethernet adapter vEthernet (WSL (Hyper-V firewall)):
+
+#   Connection-specific DNS Suffix  . :
+#   Link-local IPv6 Address . . . . . : fe80::a0f5:7bc4:4f44:8c8e%31
+#   IPv4 Address. . . . . . . . . . . : 172.19.80.1
 var tcp_server := TCPServer.new()
 var connected_clients := [] # StreamPeerTCP
 var client_connection := StreamPeerTCP.new()
