@@ -1,0 +1,26 @@
+{
+  "name": "canasta-2",
+  "version": "1.0.0",
+  "description": "https://en.wikipedia.org/wiki/Canasta",
+  "homepage": "https://github.com/russjohnson09/canasta-2#readme",
+  "bugs": {
+    "url": "https://github.com/russjohnson09/canasta-2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/russjohnson09/canasta-2.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "opencode-ai": "^1.19.6"
+  }
+}

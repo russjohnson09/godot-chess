@@ -19,8 +19,40 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: feat/expirement-1
+          fetch-depth: 0
 
       - name: Run tests
         run: |
           # Replace with your project’s test command
           echo "hi"
+
+      - name: Set up Node.js from .nvmrc
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Cache global node modules
+        uses: actions/cache@v4
+        id: npm-cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+
+      # Use 41898282 if you want the commit attributed to GitHub’s github-actions[bot] account. It’s that account’s ID, not an arbitrary placeholder. If you use another value, Git will still make the commit, but GitHub may attribute it differently or not link it to the bot account.
+      # https://github.com/orgs/community/discussions/119597
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Update generated files"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
