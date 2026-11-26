@@ -42,3 +42,5 @@ Here is how each platform is supported:
 
 
 https://dotnet.microsoft.com/en-us/apps/maui
+
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.5-flash-lite, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.
