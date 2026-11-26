@@ -43,7 +43,20 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+      # Gemini 3.5 Flash Lite
+      - name: Run OpenCode to add tests
+        env:
+          # GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+                  # https://opencode.ai/docs/cli/commands/
 
+        run: |
+          MODEL="${{ github.event.inputs.model || 'google/gemini-flash-lite-latest' }}"
+          npx opencode run \
+            --model "$MODEL" \
+            --auto \
+            "Read and execute instrucstions in docs/TODO_INSTRUCTIONS.md"
+          cat COMMIT_MESSAGE.md
 
       # Use 41898282 if you want the commit attributed to GitHub’s github-actions[bot] account. It’s that account’s ID, not an arbitrary placeholder. If you use another value, Git will still make the commit, but GitHub may attribute it differently or not link it to the bot account.
       # https://github.com/orgs/community/discussions/119597
@@ -53,6 +66,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if ! git diff --cached --quiet; then
-            git commit -m "Update generated files"
+            # git commit -m "Update generated files"
+            git commit -F COMMIT_MESSAGE.md
             git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
