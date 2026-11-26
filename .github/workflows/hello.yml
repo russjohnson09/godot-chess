@@ -46,12 +46,13 @@ jobs:
       #   Error response from daemon: failed to resolve reference "docker.io/barichello/godot-ci:4.3.0": docker.io/barichello/godot-ci:4.3.0: not found
       image: barichello/godot-ci:mono-latest
       options: --user root
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      # credentials:
+      #   username: ${{ github.actor }}
+      #   password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v6
+    # using v4 as a workaround but the git credentials need sharing on v5 v6
+      - uses: actions/checkout@v4
         # with:
           # ref: feat/expirement-2
           # default to 1 to not give the 
