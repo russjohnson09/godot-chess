@@ -28,4 +28,23 @@ public class CoinTests
         Assert.IsTrue(tails > 0);
         Assert.AreEqual(100, heads + tails);
     }
+
+    [TestMethod]
+    public void TestCoinGameRunStepFlip()
+    {
+        var game = new CoinGame();
+        var response = game.RunStep("");
+        Assert.IsTrue(response.StartsWith("The coin landed on:"));
+    }
+
+    [TestMethod]
+    public void TestCoinGameRunStepQuit()
+    {
+        var game = new CoinGame();
+        var response = game.RunStep("q");
+        Assert.AreEqual("QUIT", response);
+
+        var responseUpper = game.RunStep("Q");
+        Assert.AreEqual("QUIT", responseUpper);
+    }
 }
