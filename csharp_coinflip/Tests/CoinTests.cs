@@ -47,4 +47,43 @@ public class CoinTests
         var responseUpper = game.RunStep("Q");
         Assert.AreEqual("QUIT", responseUpper);
     }
+
+    [TestMethod]
+    public void TestGraphicalRendererHeads()
+    {
+        var rendered = CoinGraphicalRenderer.Render(Coin.Heads);
+        Assert.IsTrue(rendered.Contains("HEADS"));
+        Assert.IsTrue(rendered.Contains("┌─────────────────┐"));
+    }
+
+    [TestMethod]
+    public void TestGraphicalRendererTails()
+    {
+        var rendered = CoinGraphicalRenderer.Render(Coin.Tails);
+        Assert.IsTrue(rendered.Contains("TAILS"));
+        Assert.IsTrue(rendered.Contains("└─────────────────┘"));
+    }
+
+    [TestMethod]
+    public void TestGraphicalRendererWelcome()
+    {
+        var welcome = CoinGraphicalRenderer.RenderWelcome();
+        Assert.IsTrue(welcome.Contains("GRAPHICAL MODE"));
+    }
+
+    [TestMethod]
+    public void TestCoinGameRunGraphicalStep()
+    {
+        var game = new CoinGame();
+        var response = game.RunGraphicalStep("");
+        Assert.IsTrue(response.Contains("┌─────────────────┐"));
+    }
+
+    [TestMethod]
+    public void TestCoinGameRunGraphicalStepQuit()
+    {
+        var game = new CoinGame();
+        var response = game.RunGraphicalStep("q");
+        Assert.AreEqual("QUIT", response);
+    }
 }

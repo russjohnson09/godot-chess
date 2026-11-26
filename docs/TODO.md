@@ -3,4 +3,8 @@
 - [x] - example coin flip in rust
 - [x] - example coin flip in C# all code and tests under csharp_coinflip
 - [x] - Add a simple ui to the csharp_coniflip implementation.
-- [ ] - Add a graphical UI to the csharp_coinflip. Preserve the terminal based UI.
+- [x] - Add a graphical UI to the csharp_coinflip. Preserve the terminal based UI.
+  - [x] Add graphical UI mode support and rendering helper in C# coin flip project.
+  - [x] Integrate graphical UI into application and preserve terminal based UI.
+  - [x] Add unit tests for graphical UI components.
+  - [x] Update documentation and verify all tests pass.
