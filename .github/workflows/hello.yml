@@ -1,5 +1,9 @@
 name: Scheduled tests
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   schedule:
     # every minute
