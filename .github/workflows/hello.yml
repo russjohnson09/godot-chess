@@ -55,8 +55,8 @@ jobs:
           MODEL="${{ github.event.inputs.model || 'google/gemini-flash-lite-latest' }}"
           WORK_DIR=$(pwd)
           echo $WORK_DIR
-          INSTRUCTIONS_FILE="$WORK_DIR/docs/TODO_INSTRUCTIONS.md"
-          INSTRUCTIONS="Read and execute instrucstions in $WORK_DIR/docs/TODO_INSTRUCTIONS.md"
+          INSTRUCTIONS_FILE="$WORK_DIR/docs/TODO_INT.md"
+          INSTRUCTIONS="Read and execute instructions in $INSTRUCTIONS_FILE"
           echo $INSTRUCTIONS_FILE
           echo $INSTRUCTIONS
           npx opencode run \
