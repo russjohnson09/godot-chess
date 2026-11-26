@@ -48,7 +48,7 @@ jobs:
 
       - uses: actions/checkout@v6
         with:
-          ref: feat/expirement-1
+          ref: feat/expirement-2
           # default to 1 to not give the 
           # fetch-depth 0 gives full access to logs
           # fetch-depth: 0
