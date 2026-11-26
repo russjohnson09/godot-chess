@@ -8,3 +8,4 @@
   - [x] Integrate graphical UI into application and preserve terminal based UI.
   - [x] Add unit tests for graphical UI components.
   - [x] Update documentation and verify all tests pass.
+  - [ ] Add a new GUI written using .NET MAUI. It should have a single button "Flip Coin" that simulates a coin flip and a text label that displays "HEADS" or "TAILS"
