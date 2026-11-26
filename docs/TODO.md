@@ -15,3 +15,8 @@
   - [x] Add documentation under `./docs` and update `COMMIT_MESSAGE.md`.
   - [x] Build an executable for csharp_coinflip_maui
   - [ ] Create a basic hello world csharp maui app with a windows executable. csharp_helloworld_maui
+  - [x] Create .NET MAUI project configuration and basic application structure under `csharp_helloworld_maui`.
+  - [ ] Implement MainPage with "Hello World" text.
+  - [ ] Add unit tests and verify build and tests pass.
+  - [ ] Add documentation under `./docs` and update `COMMIT_MESSAGE.md`.
+  - [ ] Build an executable for csharp_helloworld_maui
