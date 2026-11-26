@@ -15,12 +15,17 @@ on:
       - 'feat/expirement-2'
     paths:
       - 'docs/TODO.md'
+      - '.github/workflows/hello.yml'
 
 
 permissions:
   contents: write
   # pull-requests: write
 
+# https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/run-jobs-in-a-container
+# runs:
+#   using: 'docker'
+#   image: 'Dockerfile'
 
 jobs:
   test:
@@ -31,9 +36,13 @@ jobs:
     # Installing libgl1 and libglx-mesa0 instead of libgl1-mesa-glx will result in equivalent behaviour and should work on Ubuntu 18.04 and newer.
 
     # https://askubuntu.com/questions/1517352/issues-installing-libgl1-mesa-glx
+    
+    # TODO push my Dockerfile to the public image repo
     runs-on: ubuntu-latest
     container:
-      image: ${{ github.workspace }}/Dockerfile
+      # https://stackoverflow.com/questions/61154750/use-local-docker-image-in-a-github-action
+      # image: ${{ github.workspace }}/Dockerfile
+      image: barichello/godot-ci:4.3.0
       options: --user root
 
     steps:
