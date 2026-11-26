@@ -46,6 +46,9 @@ jobs:
       #   Error response from daemon: failed to resolve reference "docker.io/barichello/godot-ci:4.3.0": docker.io/barichello/godot-ci:4.3.0: not found
       image: barichello/godot-ci:mono-latest
       options: --user root
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v6
