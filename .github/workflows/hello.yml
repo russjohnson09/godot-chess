@@ -16,7 +16,11 @@ jobs:
     timeout-minutes: 15
     # runs-on: ubuntu-latest
     # E: Package 'libgl1-mesa-glx' has no installation candidate
-    runs-on: ubuntu-24 # godot support 
+    # runs-on: ubuntu-24 # godot support 
+    # Installing libgl1 and libglx-mesa0 instead of libgl1-mesa-glx will result in equivalent behaviour and should work on Ubuntu 18.04 and newer.
+
+    # https://askubuntu.com/questions/1517352/issues-installing-libgl1-mesa-glx
+    runs-on: ubuntu-latest
 
     steps:
       - name: Cache Godot Snap / Installation & Build Cache
@@ -32,7 +36,7 @@ jobs:
 
       - name: Install Godot & Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1-mesa-glx
+          sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1 libglx-mesa0
           # https://github.com/Joshua-Riek/ubuntu-rockchip/issues/728
           # sudo apt-get update && sudo apt-get install -y ffmpeg
           sudo snap install godot-4 || sudo snap refresh godot-4
