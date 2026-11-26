@@ -54,10 +54,15 @@ jobs:
         run: |
           MODEL="${{ github.event.inputs.model || 'google/gemini-flash-lite-latest' }}"
           WORK_DIR=$(pwd)
+          echo $WORK_DIR
+          INSTRUCTIONS_FILE="$WORK_DIR/docs/TODO_INSTRUCTIONS.md"
+          INSTRUCTIONS="Read and execute instrucstions in $WORK_DIR/docs/TODO_INSTRUCTIONS.md"
+          echo $INSTRUCTIONS_FILE
+          echo $INSTRUCTIONS
           npx opencode run \
             --model "$MODEL" \
             --auto \
-            "Read and execute instrucstions in $WORK_DIR/docs/TODO_INSTRUCTIONS.md"
+            "$INSTRUCTIONS"
           cat COMMIT_MESSAGE.md
 
       # Use 41898282 if you want the commit attributed to GitHub’s github-actions[bot] account. It’s that account’s ID, not an arbitrary placeholder. If you use another value, Git will still make the commit, but GitHub may attribute it differently or not link it to the bot account.
