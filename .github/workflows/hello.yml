@@ -5,10 +5,15 @@ concurrency:
   cancel-in-progress: false
 
 on:
-  schedule:
-    # 3 AM EST is 8:00 AM UTC (or 7:00 AM UTC during EDT)
-    - cron: "0 8 * * *"
+  # schedule:
+  #   # 3 AM EST is 8:00 AM UTC (or 7:00 AM UTC during EDT)
+  #   - cron: "0 8 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - 'auto/**'
+    paths:
+      - 'docs/TODO.md'
 
 
 permissions:
