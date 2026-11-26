@@ -55,6 +55,25 @@ jobs:
           # fetch-depth 0 gives full access to logs
           # fetch-depth: 0
 
+      - name: Commit and push changes (sanity check)
+        run: |
+          echo "start"
+          pwd
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "set username"
+          git status
+          #TARGET_BRANCH="${{ github.head_ref || github.ref_name }}"
+          #git checkout "$TARGET_BRANCH"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -F COMMIT_MESSAGE.md
+            # git push origin "HEAD:$TARGET_BRANCH"
+            git push
+          else
+            echo "no changes"
+          fi
+
       - name: Run tests
         run: |
           # Replace with your project’s test command
