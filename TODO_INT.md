@@ -4,4 +4,5 @@
 * Do not add entirely new tasks.
 * Whenever possible include unit tests and confirm they pass before marking an item as complete with [x]
 * Only complete one task or subtask
+* Add any necessary documentation under ./docs how to run, test, purpose, etc.
 * Add a summary of what task was completed and how to t  [./COMMIT_MESSAGE.md](./COMMIT_MESSAGE.md)
