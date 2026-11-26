@@ -12,12 +12,9 @@ jobs:
   run-godot:
     name: Run Godot Game in Headless Mode
     if: github.event.pull_request.draft == false
-    runs-on: ubuntu-24
+    runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Cache Godot Snap / Installation & Build Cache
         uses: actions/cache@v4
         with:
@@ -31,12 +28,17 @@ jobs:
 
       - name: Install Godot & Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1-mesa-glx
+          sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1 libglx-mesa0
           # https://github.com/Joshua-Riek/ubuntu-rockchip/issues/728
           # sudo apt-get update && sudo apt-get install -y ffmpeg
           sudo snap install godot-4 || sudo snap refresh godot-4
 
-
+      - uses: actions/checkout@v6
+        with:
+          ref: feat/expirement-1
+          # default to 1 to not give the 
+          # fetch-depth 0 gives full access to logs
+          # fetch-depth: 0
       - name: Run Godot Scene
         run: |
           cd godot-chess/godot-chess
