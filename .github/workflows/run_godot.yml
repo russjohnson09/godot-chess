@@ -5,11 +5,13 @@ on:
   #   branches: [ main, master ]
   pull_request:
     branches: [ main ]
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 
 jobs:
   run-godot:
     name: Run Godot Game in Headless Mode
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-24
     
     steps:
