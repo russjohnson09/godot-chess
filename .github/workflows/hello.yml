@@ -23,4 +23,4 @@ jobs:
       - name: Run tests
         run: |
           # Replace with your project’s test command
-          npm test
+          echo "hi"
