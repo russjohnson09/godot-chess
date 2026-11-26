@@ -42,7 +42,9 @@ jobs:
     container:
       # https://stackoverflow.com/questions/61154750/use-local-docker-image-in-a-github-action
       # image: ${{ github.workspace }}/Dockerfile
-      image: barichello/godot-ci:4.3.0
+      # https://hub.docker.com/r/barichello/godot-ci/
+      #   Error response from daemon: failed to resolve reference "docker.io/barichello/godot-ci:4.3.0": docker.io/barichello/godot-ci:4.3.0: not found
+      image: barichello/godot-ci:mono-latest
       options: --user root
 
     steps:
