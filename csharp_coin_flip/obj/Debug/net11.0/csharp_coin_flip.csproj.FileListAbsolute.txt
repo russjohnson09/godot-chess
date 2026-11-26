@@ -1,0 +1,17 @@
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/bin/Debug/net11.0/csharp_coin_flip
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/bin/Debug/net11.0/csharp_coin_flip.deps.json
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/bin/Debug/net11.0/csharp_coin_flip.runtimeconfig.json
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/bin/Debug/net11.0/csharp_coin_flip.runtimeconfig.dev.json
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/bin/Debug/net11.0/csharp_coin_flip.dll
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/bin/Debug/net11.0/csharp_coin_flip.pdb
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_coin_flip.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_coin_flip.AssemblyInfoInputs.cache
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_coin_flip.AssemblyInfo.cs
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_coin_flip.csproj.CoreCompileInputs.cache
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_coin_flip.sourcelink.json
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_coin_flip.dll
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/refint/csharp_coin_flip.dll
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_coin_flip.pdb
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_coin_flip.genruntimeconfig.cache
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/ref/csharp_coin_flip.dll
+/home/runner/work/godot-chess/godot-chess/csharp_coin_flip/obj/Debug/net11.0/csharp_c.7EF8A299.Up2Date
