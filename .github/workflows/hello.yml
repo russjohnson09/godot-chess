@@ -32,7 +32,7 @@ jobs:
     # https://askubuntu.com/questions/1517352/issues-installing-libgl1-mesa-glx
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.3.0
+      image: ${{ github.workspace }}/Dockerfile
       options: --user root
 
     steps:
