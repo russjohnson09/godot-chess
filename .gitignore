@@ -13,7 +13,7 @@ nupkg/
 .vs/
 .vscode/
 .idea/
-*.csproj
+# *.csproj
 *.sln
 *.user
 

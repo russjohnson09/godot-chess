@@ -12,6 +12,7 @@ on:
   push:
     branches:
       - 'auto/**'
+      - 'feat/expirement-2'
     paths:
       - 'docs/TODO.md'
 
