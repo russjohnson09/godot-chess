@@ -11,7 +11,8 @@ dotnet build csharp_coinflip_maui/csharp_coinflip_maui.csproj
 
 To build and publish an executable / output binaries:
 ```bash
-dotnet publish -c Release -r win-x64
+dotnet publish -c Release -r win-x64 --self-contained true  -p:PublishSingleFile=true
+dotnet run --project csharp_coinflip_maui
 dotnet publish csharp_coinflip_maui/csharp_coinflip_maui.csproj -c Release
 dotnet publish csharp_coinflip_maui/csharp_coinflip_maui.csproj -f net10.0-windows10.0.19041.0 -c Release
 dotnet publish csharp_coinflip_maui/csharp_coinflip_maui.csproj -c Release -r win-x64
