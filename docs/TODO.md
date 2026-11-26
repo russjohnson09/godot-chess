@@ -8,4 +8,8 @@
   - [x] Integrate graphical UI into application and preserve terminal based UI.
   - [x] Add unit tests for graphical UI components.
   - [x] Update documentation and verify all tests pass.
-  - [ ] Add a new GUI written using .NET MAUI. It should have a single button "Flip Coin" that simulates a coin flip and a text label that displays "HEADS" or "TAILS"
+  - [x] Add a new GUI written using .NET MAUI. It should have a single button "Flip Coin" that simulates a coin flip and a text label that displays "HEADS" or "TAILS"
+  - [x] Create .NET MAUI project configuration and basic application structure under `csharp_coinflip_maui`.
+  - [x] Implement MainPage with "Flip Coin" button and text label for "HEADS" or "TAILS".
+  - [x] Add unit tests and verify build and tests pass.
+  - [x] Add documentation under `./docs` and update `COMMIT_MESSAGE.md`.
