@@ -1,16 +1,19 @@
+using Microsoft.Maui;
+using Microsoft.Maui.Hosting;
+
 namespace CSharpCoinFlipMaui;
 
-public class Program
+public class Program : Microsoft.Maui.Controls.MauiWinUIApplication
 {
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
     [STAThread]
     public static void Main(string[] args)
     {
-        Console.WriteLine("Starting CSharpCoinFlipMaui Application...");
-        var app = MauiProgram.CreateMauiApp();
-        // Keep console alive for debug output
-        Task.Run(() => app);
-        
-        // Launch standard application life-cycle
-        Microsoft.Maui.Controls.Application.Current = new App();
+        Microsoft.UI.Xaml.Application.Start((p) =>
+        {
+            var context = new Microsoft.UI.Xaml.ApplicationInitializationCallback(p);
+            new Program();
+        });
     }
 }
