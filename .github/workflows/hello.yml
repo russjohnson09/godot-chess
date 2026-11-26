@@ -5,9 +5,9 @@ concurrency:
   cancel-in-progress: false
 
 on:
-  # schedule:
-  #   # 3 AM EST is 8:00 AM UTC (or 7:00 AM UTC during EDT)
-  #   - cron: "0 8 * * *"
+  schedule:
+    # 3 AM EST is 8:00 AM UTC (or 7:00 AM UTC during EDT)
+    - cron: "0 8 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -33,27 +33,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Cache Godot Snap / Installation & Build Cache
+      - name: Check for Godot Cache
+        id: godot-cache
         uses: actions/cache@v4
         with:
-          path: |
-            /snap/godot-4
-            /var/lib/snapd
-            godot-chess/godot-chess/.godot
-          key: ${{ runner.os }}-godot-snap-v1-${{ hashFiles('godot-chess/godot-chess/project.godot') }}
-          restore-keys: |
-            ${{ runner.os }}-godot-snap-v1-
+          path: /opt/godot
+          key: ${{ runner.os }}-godot-4.3-v2
 
       - name: Install Godot & Dependencies
+        if: steps.godot-cache.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1 libglx-mesa0
-          # https://github.com/Joshua-Riek/ubuntu-rockchip/issues/728
-          # sudo apt-get update && sudo apt-get install -y ffmpeg
           sudo snap install godot-4 || sudo snap refresh godot-4
+          sudo mkdir -p /opt/godot
+          sudo cp -r /snap/godot-4 /opt/godot/ || true
+
+      - name: Restore Godot from Cache if exists
+        if: steps.godot-cache.outputs.cache-hit == 'true'
+        run: |
+          sudo mkdir -p /snap
+          sudo cp -r /opt/godot/godot-4 /snap/ || true
 
       - uses: actions/checkout@v6
-        with:
-          ref: feat/expirement-2
+        # with:
+          # ref: feat/expirement-2
           # default to 1 to not give the 
           # fetch-depth 0 gives full access to logs
           # fetch-depth: 0
