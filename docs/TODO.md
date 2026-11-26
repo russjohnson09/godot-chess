@@ -1,1 +1,2 @@
 - [x] - Add a HI.md file in docs/
+- [x] - Add a BYE.md file in docs/
