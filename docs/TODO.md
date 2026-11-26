@@ -1,4 +1,4 @@
 - [x] - Add a HI.md file in docs/
 - [x] - Add a BYE.md file in docs/
 - [x] - example coin flip in rust
-- [x] - example coin flip in C#
+- [ ] - example coin flip in C#
