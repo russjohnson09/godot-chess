@@ -1,6 +1,6 @@
 * Do not make use of git.
 * Web searches are allowed but should be kept to a minimum.
-* Read ./TODO.md and pick the first uncompleted task found. If this is a large task split it up into subtasks that are uncompleted [ ].
+* Read [./TODO.md](./TODO.md) and pick the first uncompleted task found. If this is a large task split it up into subtasks that are uncompleted [ ].
 * Do not add entirely new tasks.
 * Whenever possible include unit tests and confirm they pass before marking an item as complete with [x]
 * Only complete one task or subtask
