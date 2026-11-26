@@ -65,6 +65,8 @@ jobs:
         run: |
           echo "start"
           pwd
+          echo "$PWD"
+          git config --global --add safe.directory "$PWD"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           echo "set username"
