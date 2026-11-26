@@ -22,3 +22,6 @@ https://stackoverflow.com/questions/59269850/caching-apt-packages-in-github-acti
 
 
 https://github.com/abarichello/godot-ci
+
+
+- [ ] Setup a image builder job according to instructions in https://docs.github.com/en/actions/how-tos/manage-runners/larger-runners/use-custom-images#setting-up-an-image-generation-runner
