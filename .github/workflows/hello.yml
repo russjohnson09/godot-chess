@@ -16,6 +16,24 @@ jobs:
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
+      - name: Cache Godot Snap / Installation & Build Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            /snap/godot-4
+            /var/lib/snapd
+            godot-chess/godot-chess/.godot
+          key: ${{ runner.os }}-godot-snap-v1-${{ hashFiles('godot-chess/godot-chess/project.godot') }}
+          restore-keys: |
+            ${{ runner.os }}-godot-snap-v1-
+
+      - name: Install Godot & Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1-mesa-glx
+          # https://github.com/Joshua-Riek/ubuntu-rockchip/issues/728
+          # sudo apt-get update && sudo apt-get install -y ffmpeg
+          sudo snap install godot-4 || sudo snap refresh godot-4
+
       - uses: actions/checkout@v6
         with:
           ref: feat/expirement-1
