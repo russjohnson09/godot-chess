@@ -2,3 +2,4 @@
 - [x] - Add a BYE.md file in docs/
 - [x] - example coin flip in rust
 - [x] - example coin flip in C# all code and tests under csharp_coinflip
+- [ ] - Add a simple ui to the csharp_coniflip implementation.
