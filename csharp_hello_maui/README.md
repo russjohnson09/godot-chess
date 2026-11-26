@@ -65,3 +65,11 @@ Learn more:
 
 Download .NET:
   https://aka.ms/dotnet/download
+
+
+
+
+  dotnet build -f net11.0-android
+
+
+dotnet new maui -n FreshMaui
