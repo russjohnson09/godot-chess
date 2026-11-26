@@ -31,29 +31,11 @@ jobs:
 
     # https://askubuntu.com/questions/1517352/issues-installing-libgl1-mesa-glx
     runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3.0
+      options: --user root
 
     steps:
-      - name: Check for Godot Cache
-        id: godot-cache
-        uses: actions/cache@v4
-        with:
-          path: /opt/godot
-          key: ${{ runner.os }}-godot-4.3-v2
-
-      - name: Install Godot & Dependencies
-        if: steps.godot-cache.outputs.cache-hit != 'true'
-        run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1 libglx-mesa0
-          sudo snap install godot-4 || sudo snap refresh godot-4
-          sudo mkdir -p /opt/godot
-          sudo cp -r /snap/godot-4 /opt/godot/ || true
-
-      - name: Restore Godot from Cache if exists
-        if: steps.godot-cache.outputs.cache-hit == 'true'
-        run: |
-          sudo mkdir -p /snap
-          sudo cp -r /opt/godot/godot-4 /snap/ || true
-
       - uses: actions/checkout@v6
         # with:
           # ref: feat/expirement-2
