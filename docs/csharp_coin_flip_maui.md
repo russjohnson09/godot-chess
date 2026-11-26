@@ -9,6 +9,11 @@ To build the .NET MAUI coin flip application:
 dotnet build csharp_coinflip_maui/csharp_coinflip_maui.csproj
 ```
 
+To build and publish an executable / output binaries:
+```bash
+dotnet publish csharp_coinflip_maui/csharp_coinflip_maui.csproj -c Release
+```
+
 ## How to Test
 To run the unit tests:
 ```bash
