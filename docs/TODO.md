@@ -14,3 +14,4 @@
   - [x] Add unit tests and verify build and tests pass.
   - [x] Add documentation under `./docs` and update `COMMIT_MESSAGE.md`.
   - [x] Build an executable for csharp_coinflip_maui
+  - [ ] Create a basic hello world csharp maui app with a windows executable. csharp_helloworld_maui
