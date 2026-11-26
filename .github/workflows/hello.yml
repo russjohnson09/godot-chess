@@ -78,4 +78,6 @@ jobs:
             # git commit -m "Update generated files"
             git commit -F COMMIT_MESSAGE.md
             git push origin "HEAD:${GITHUB_REF_NAME}"
+          else
+            echo "no changes"
           fi
