@@ -52,7 +52,9 @@ jobs:
 
     steps:
     # using v4 as a workaround but the git credentials need sharing on v5 v6
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+            token: ${{ secrets.GITHUB_TOKEN }}
         # with:
           # ref: feat/expirement-2
           # default to 1 to not give the 
