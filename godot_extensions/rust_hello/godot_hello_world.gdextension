@@ -1,0 +1,12 @@
+[resource]
+load_type = "gdextension"
+entry_symbol = "gdextension_entry"
+compatibility_minimum = "4.3"
+
+[libraries]
+windows.debug.x86_64 = "target/debug/godot_hello_world.dll"
+windows.release.x86_64 = "target/release/godot_hello_world.dll"
+linux.debug.x86_64 = "target/debug/libgodot_hello_world.so"
+linux.release.x86_64 = "target/release/libgodot_hello_world.so"
+macos.debug = "target/debug/libgodot_hello_world.dylib"
+macos.release = "target/release/libgodot_hello_world.dylib"
