@@ -6,8 +6,8 @@ concurrency:
 
 on:
   schedule:
-    # every minute
-    - cron: "* * * * *"
+    # 3 AM EST is 8:00 AM UTC (or 7:00 AM UTC during EDT)
+    - cron: "0 8 * * *"
   workflow_dispatch:
 
 
