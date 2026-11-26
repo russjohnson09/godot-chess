@@ -44,7 +44,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       # Gemini 3.5 Flash Lite
-      - name: Run OpenCode to add tests
+      - name: Run OpenCode implement
         env:
           # GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           # https://aistudio.google.com/api-keys
