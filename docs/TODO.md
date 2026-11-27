@@ -13,4 +13,4 @@
   - [x] Implement MainPage with "Flip Coin" button and text label for "HEADS" or "TAILS".
   - [x] Add unit tests and verify build and tests pass.
   - [x] Add documentation under `./docs` and update `COMMIT_MESSAGE.md`.
-  - [ ] Use the existing csharp_coinflip_maui maui app. Update it to have a single button "Flip Coin" that simulates a coin flip and a text label that displays "HEADS" or "TAILS".
+  - [x] Use the existing csharp_coinflip_maui maui app. Update it to have a single button "Flip Coin" that simulates a coin flip and a text label that displays "HEADS" or "TAILS".

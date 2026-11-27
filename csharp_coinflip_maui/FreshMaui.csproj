@@ -60,6 +60,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Remove="Tests\**" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="11.0.0" />
 	</ItemGroup>
