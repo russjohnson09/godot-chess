@@ -109,10 +109,12 @@ jobs:
         env:
           # GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           # https://aistudio.google.com/api-keys
+          # https://console.groq.com/dashboard/usage?tab=cost
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
                   # https://opencode.ai/docs/cli/commands/
-          MODEL: ${{ vars.MODEL_NAME }}
+          MODEL: groq/qwen/qwen3.8-27b
+          #${{ vars.MODEL_NAME }}
 
         run: |
           # MODEL="${{ github.event.inputs.model || 'google/gemini-flash-lite-latest' }}"

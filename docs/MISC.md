@@ -44,3 +44,17 @@ Here is how each platform is supported:
 https://dotnet.microsoft.com/en-us/apps/maui
 
 * Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.5-flash-lite, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.
+
+
+https://console.groq.com/settings/limits
+
+
+Chat Completions
+Model	Requests per Minute	Requests per Day	Tokens per Minute	Tokens per Day	Actions
+allam-2-7b	30	7K	6K	500K	
+meta-llama/llama-prompt-guard-2-22m	30	14.4K	15K	500K	
+meta-llama/llama-prompt-guard-2-86m	30	14.4K	15K	500K	
+openai/gpt-oss-120b	30	1K	8K	200K	
+openai/gpt-oss-20b	30	1K	8K	200K	
+openai/gpt-oss-safeguard-20b	3	1K	2K	200K	
+qwen/qwen3.8-27b	30	1K	8K	200K
