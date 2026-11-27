@@ -15,3 +15,46 @@ Pick GDScript by default — it’s built in, needs no extra tooling, exports ev
 
 
 I'm chosing C# because I want something that is portable and easily testable outside of godot. There are community supported unit testing tools, but C# will just have this built in.
+
+
+
+https://stackoverflow.com/questions/59269850/caching-apt-packages-in-github-actions-workflow
+
+
+https://github.com/abarichello/godot-ci
+
+
+- [ ] Setup a image builder job according to instructions in https://docs.github.com/en/actions/how-tos/manage-runners/larger-runners/use-custom-images#setting-up-an-image-generation-runner
+
+
+
+$ dotnet new list
+
+
+
+I want to use C# for godot extensions but I'm afraid that will hurt support for steamdeck, andriod, and ubuntu.
+Using C# for Godot extensions will not hurt support for Steam Deck, Android, or Ubuntu. Godot has strong, built-in, and officially supported C# (.NET) runtimes for all of these platforms.
+Here is how each platform is supported:
+1. Steam Deck (Linux x86_64): Fully supported. The Godot .NET runtime for Linux handles C# out of the box. Since the Steam Deck runs SteamOS (an Arch Linux distro), your C# GDExtensions/scripts will run smoothly.
+2. Android: Fully supported. Godot exports C# projects to Android by bundling the NativeAOT or Mono runtime for ARM/ARM64. 
+3. Ubuntu (Linux): Fully supported. Linux is a primary desktop target for Godot's C# export templates.
+
+
+
+https://dotnet.microsoft.com/en-us/apps/maui
+
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 500, model: gemini-3.5-flash-lite, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.
+
+
+https://console.groq.com/settings/limits
+
+
+Chat Completions
+Model	Requests per Minute	Requests per Day	Tokens per Minute	Tokens per Day	Actions
+allam-2-7b	30	7K	6K	500K	
+meta-llama/llama-prompt-guard-2-22m	30	14.4K	15K	500K	
+meta-llama/llama-prompt-guard-2-86m	30	14.4K	15K	500K	
+openai/gpt-oss-120b	30	1K	8K	200K	
+openai/gpt-oss-20b	30	1K	8K	200K	
+openai/gpt-oss-safeguard-20b	3	1K	2K	200K	
+qwen/qwen3.8-27b	30	1K	8K	200K

@@ -1,4 +1,1 @@
-- [x] - Add a HI.md file in docs/
-- [x] - Add a BYE.md file in docs/
-- [x] - example coin flip in rust
-- [x] - example coin flip in C#
+- [ ] Create a sharable library for csharp\coinflip\maui. The main coin flip CoinFlipper.cs class should work in a windows application and in terminal.

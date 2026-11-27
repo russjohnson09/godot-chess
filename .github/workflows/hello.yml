@@ -5,16 +5,28 @@ concurrency:
   cancel-in-progress: false
 
 on:
-  schedule:
-    # every minute
-    - cron: "* * * * *"
+  # schedule:
+  #   # 3 AM EST is 8:00 AM UTC (or 7:00 AM UTC during EDT)
+  #   - cron: "0 8 * * *"
+
   workflow_dispatch:
+  push:
+    branches:
+      - 'auto/**'
+      - 'feat/expirement-2'
+    paths:
+      - 'docs/TODO.md'
+      - '.github/workflows/hello.yml'
 
 
 permissions:
   contents: write
   # pull-requests: write
 
+# https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/run-jobs-in-a-container
+# runs:
+#   using: 'docker'
+#   image: 'Dockerfile'
 
 jobs:
   test:
@@ -25,33 +37,51 @@ jobs:
     # Installing libgl1 and libglx-mesa0 instead of libgl1-mesa-glx will result in equivalent behaviour and should work on Ubuntu 18.04 and newer.
 
     # https://askubuntu.com/questions/1517352/issues-installing-libgl1-mesa-glx
+    
+    # TODO push my Dockerfile to the public image repo
     runs-on: ubuntu-latest
+    container:
+      # https://stackoverflow.com/questions/61154750/use-local-docker-image-in-a-github-action
+      # image: ${{ github.workspace }}/Dockerfile
+      # https://hub.docker.com/r/barichello/godot-ci/
+      #   Error response from daemon: failed to resolve reference "docker.io/barichello/godot-ci:4.3.0": docker.io/barichello/godot-ci:4.3.0: not found
+      image: barichello/godot-ci:mono-latest
+      options: --user root
+      # credentials:
+      #   username: ${{ github.actor }}
+      #   password: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - name: Cache Godot Snap / Installation & Build Cache
-        uses: actions/cache@v4
+    # using v4 as a workaround but the git credentials need sharing on v5 v6
+      - uses: actions/checkout@v5
         with:
-          path: |
-            /snap/godot-4
-            /var/lib/snapd
-            godot-chess/godot-chess/.godot
-          key: ${{ runner.os }}-godot-snap-v1-${{ hashFiles('godot-chess/godot-chess/project.godot') }}
-          restore-keys: |
-            ${{ runner.os }}-godot-snap-v1-
-
-      - name: Install Godot & Dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg libgl1-mesa-dri libgl1 libglx-mesa0
-          # https://github.com/Joshua-Riek/ubuntu-rockchip/issues/728
-          # sudo apt-get update && sudo apt-get install -y ffmpeg
-          sudo snap install godot-4 || sudo snap refresh godot-4
-
-      - uses: actions/checkout@v6
-        with:
-          ref: feat/expirement-2
+            token: ${{ secrets.GITHUB_TOKEN }}
+        # with:
+          # ref: feat/expirement-2
           # default to 1 to not give the 
           # fetch-depth 0 gives full access to logs
           # fetch-depth: 0
+
+      - name: Commit and push changes (sanity check)
+        run: |
+          echo "start"
+          pwd
+          echo "$PWD"
+          git config --global --add safe.directory "$PWD"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "set username"
+          git status
+          #TARGET_BRANCH="${{ github.head_ref || github.ref_name }}"
+          #git checkout "$TARGET_BRANCH"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -F COMMIT_MESSAGE.md
+            # git push origin "HEAD:$TARGET_BRANCH"
+            git push
+          else
+            echo "no changes"
+          fi
 
       - name: Run tests
         run: |
@@ -80,11 +110,50 @@ jobs:
         env:
           # GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           # https://aistudio.google.com/api-keys
+          # https://console.groq.com/dashboard/usage?tab=cost
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
                   # https://opencode.ai/docs/cli/commands/
 
+          # MODEL: google/gemini-flash-lite-latest
+          # MODEL: google/gemini-3.1-flash-lite
+
+          # npx opencode run --model "google/gemini-flash-latest" --auto  "hi"
+          # MODEL: google/gemini-flash-latest
+          # npx opencode run --model "google/gemini-4-hydrogen" --auto  "hi"
+
+          MODEL: google/gemini-4-hydrogen
+
+          MODEL: google/gemini-flash-lite-latest # I think this is 3.5?
+          MODEL: google/gemini-3.5-flash-lite
+
+
+          MODEL: google/gemini-4-neon
+          
+          # MODEL: google/gemini-3.8-flash
+          # MODEL: google/gemini-3.6-flash
+
+          # not working
+          # MODEL: google/gemini-3.1-flash-lite
+
+          # That error happens because google/gemini-3.8-live is a Live API streaming model, not a standard generateContent text model—and OpenCode (opencode run) communicates over standard turn-based text/content endpoints rather than a bidirectional Live session
+          # npx opencode run --model "google/gemini-3.8-live" --auto  "hi"
+          # MODEL: google/gemini-3.8-live
+
+         
+
+          # Error: Request too large for model `qwen/qwen3.8-27b` 
+          # in organization `org_01m8d065nce1f8hyqzq46rmvy5` service tier `on_demand` on input tokens per minute (ITPM):
+          # Limit 7000, Requested 7753, please reduce your message size and try again. 
+          # Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing
+
+          # MODEL: groq/qwen/qwen3.8-27b
+          # google/gemini-decision-1 limited to choices yes/no
+          
+          # MODEL: google/gemini-3.1-flash-lite
+
         run: |
-          MODEL="${{ github.event.inputs.model || 'google/gemini-flash-lite-latest' }}"
+          echo $MODEL
           WORK_DIR=$(pwd)
           echo $WORK_DIR
           INSTRUCTIONS_FILE="$WORK_DIR/TODO_INT.md"
@@ -101,14 +170,19 @@ jobs:
       # https://github.com/orgs/community/discussions/119597
       - name: Commit and push changes
         run: |
+          echo "start"
+          pwd
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          TARGET_BRANCH="${{ github.head_ref || github.ref_name }}"
-          git checkout "$TARGET_BRANCH"
+          echo "set username"
+          git status
+          #TARGET_BRANCH="${{ github.head_ref || github.ref_name }}"
+          #git checkout "$TARGET_BRANCH"
           git add -A
           if ! git diff --cached --quiet; then
             git commit -F COMMIT_MESSAGE.md
-            git push origin "HEAD:$TARGET_BRANCH"
+            # git push origin "HEAD:$TARGET_BRANCH"
+            git push
           else
             echo "no changes"
           fi

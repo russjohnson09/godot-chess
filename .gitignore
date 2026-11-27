@@ -13,7 +13,7 @@ nupkg/
 .vs/
 .vscode/
 .idea/
-*.csproj
+# *.csproj
 *.sln
 *.user
 
@@ -361,3 +361,5 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+key
