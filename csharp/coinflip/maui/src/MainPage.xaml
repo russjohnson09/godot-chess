@@ -1,0 +1,24 @@
+﻿<ContentPage x:Class="FreshMaui.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25"
+            VerticalOptions="Center">
+            <Label
+                x:Name="ResultLabel"
+                Text="Press Flip Coin"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="FlipCoinBtn"
+                Text="Flip Coin"
+                SemanticProperties.Hint="Simulates a coin flip and displays HEADS or TAILS"
+                Clicked="OnFlipCoinClicked"
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
