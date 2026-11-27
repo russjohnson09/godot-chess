@@ -113,8 +113,11 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
                   # https://opencode.ai/docs/cli/commands/
-          MODEL: groq/qwen/qwen3.8-27b
-          # MODEL: google/gemini-flash-lite-latest
+
+          # Error: Request too large for model `qwen/qwen3.8-27b` in organization `org_01m8d065nce1f8hyqzq46rmvy5` service tier `on_demand` on input tokens per minute (ITPM): Limit 7000, Requested 7753, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing
+
+          # MODEL: groq/qwen/qwen3.8-27b
+          MODEL: google/gemini-flash-lite-latest
 
         run: |
           echo $MODEL
