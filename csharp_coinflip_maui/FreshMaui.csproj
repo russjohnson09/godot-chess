@@ -63,6 +63,9 @@
 		<Compile Remove="Tests\**" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="11.0.0" />
+
+		<!-- (Note: Moving the Tests folder up one level—so csharp_coinflip_maui and Tests are side-by-side folders under godot-chess—is the cleanest permanent fix, since SDK-style .csproj files only auto-glob subdirectories.) -->
+		<None Remove="Tests\**" />
 	</ItemGroup>
 
 </Project>

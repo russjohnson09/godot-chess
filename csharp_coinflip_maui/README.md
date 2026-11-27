@@ -1,3 +1,11 @@
+
+dotnet clean
+dotnet run -f net11.0-windows10.0.19041.0
+
+dotnet run --project csharp_coinflip_maui -f net11.0-windows10.0.19041.0
+
+
+
 dotnet new maui -n FreshMaui
 
 
@@ -10,3 +18,7 @@ dotnet run -f net11.0-windows10.0.19041.0 --no-restore
 
 
 dotnet run -f net11.0-windows10.0.19041.0 --no-restore -bl
+
+
+
+
