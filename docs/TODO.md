@@ -1,2 +1,2 @@
 - [x] Create shared class library project (`csharp/coinflip/shared/CoinFlipLib.csproj`) containing core `CoinFlipper` logic compatible with terminal and windows/MAUI applications.
-- [ ] Drop use of csharp\coinflip\maui\src\CoinFlipper.cs and make use of the shared library csharp\coinflip\shared instead for this.
+- [x] Drop use of csharp\coinflip\maui\src\CoinFlipper.cs and make use of the shared library csharp\coinflip\shared instead for this.

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\src\CoinFlipper.cs" Link="CoinFlipper.cs" />
+    <ProjectReference Include="..\..\shared\CoinFlipLib.csproj" />
     <None Include="..\src\MainPage.xaml" Link="MainPage.xaml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

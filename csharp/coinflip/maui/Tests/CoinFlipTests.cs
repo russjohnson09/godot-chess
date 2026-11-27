@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FreshMaui;
+using CoinFlipLib;
 
 namespace FreshMaui.Tests;
 
