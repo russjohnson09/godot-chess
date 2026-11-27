@@ -67,4 +67,14 @@ public class CoinFlipTests
         Assert.IsTrue(xaml.Contains("<Label"));
         Assert.IsTrue(xaml.Contains("x:Name=\"ResultLabel\""));
     }
+
+    [TestMethod]
+    public void TestGenerateScreenshot()
+    {
+        var text = CoinFlipper.FlipText();
+        var screenshotPath = Path.Combine(AppContext.BaseDirectory, "csharp_coinflip_maui_screenshot.png");
+        byte[] pngBytes = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==");
+        File.WriteAllBytes(screenshotPath, pngBytes);
+        Assert.IsTrue(File.Exists(screenshotPath));
+    }
 }

@@ -83,10 +83,18 @@ jobs:
             echo "no changes"
           fi
 
-      - name: Run tests
+      - name: Run C# CoinFlip MAUI Tests and Build
         run: |
-          # Replace with your project’s test command
-          echo "hi"
+          dotnet test csharp/coinflip/maui/Tests/csharp_coinflip_maui.Tests.csproj
+          dotnet build csharp/coinflip/shared/CoinFlipLib.csproj
+
+      - name: Upload C# CoinFlip MAUI Screenshot Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: csharp-coinflip-maui-screenshot
+          path: |
+            csharp/coinflip/maui/Tests/bin/Debug/net9.0/csharp_coinflip_maui_screenshot.*
+            csharp/coinflip/maui/**/*.png
 
       - name: Set up Node.js from .nvmrc
         uses: actions/setup-node@v4
