@@ -1,16 +1,1 @@
-- [x] - Add a HI.md file in docs/
-- [x] - Add a BYE.md file in docs/
-- [x] - example coin flip in rust
-- [x] - example coin flip in C# all code and tests under csharp_coinflip
-- [x] - Add a simple ui to the csharp_coniflip implementation.
-- [x] - Add a graphical UI to the csharp_coinflip. Preserve the terminal based UI.
-  - [x] Add graphical UI mode support and rendering helper in C# coin flip project.
-  - [x] Integrate graphical UI into application and preserve terminal based UI.
-  - [x] Add unit tests for graphical UI components.
-  - [x] Update documentation and verify all tests pass.
-  - [x] Add a new GUI written using .NET MAUI. It should have a single button "Flip Coin" that simulates a coin flip and a text label that displays "HEADS" or "TAILS"
-  - [x] Create .NET MAUI project configuration and basic application structure under `csharp_coinflip_maui`.
-  - [x] Implement MainPage with "Flip Coin" button and text label for "HEADS" or "TAILS".
-  - [x] Add unit tests and verify build and tests pass.
-  - [x] Add documentation under `./docs` and update `COMMIT_MESSAGE.md`.
-  - [x] Use the existing csharp_coinflip_maui maui app. Update it to have a single button "Flip Coin" that simulates a coin flip and a text label that displays "HEADS" or "TAILS".
+- [ ] Create a sharable library for csharp\coinflip\maui. The main coin flip CoinFlipper.cs class should work in a windows application and in terminal.
