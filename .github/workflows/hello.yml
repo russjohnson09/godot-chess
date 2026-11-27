@@ -115,12 +115,12 @@ jobs:
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
                   # https://opencode.ai/docs/cli/commands/
           
-          # MODEL: google/gemini-flash-lite-latest # I think this is 3.5? Anyways this is the primary one I'm using with gemini-4-hydrogen as a backup
+          MODEL: google/gemini-flash-lite-latest # I think this is 3.5? Anyways this is the primary one I'm using with gemini-4-hydrogen as a backup
           # MODEL: google/gemini-3.5-flash-lite
           # MODEL: google/gemini-4-hydrogen
 
           # 3.6-flash can be used as a third backup?
-          MODEL: google/gemini-3.6-flash
+          # MODEL: google/gemini-3.6-flash # npx opencode run --model "google/gemini-3.6-flash" --auto  "hi"
 
           # MODEL: google/gemini-3.1-flash-lite
 
