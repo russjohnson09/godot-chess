@@ -17,4 +17,4 @@ dotnet test csharp/coinflip/shared/Tests/CoinFlipLib.Tests.csproj
 ## Structure
 - `csharp/coinflip/shared/CoinFlipLib.csproj`: Class library project file.
 - `csharp/coinflip/shared/CoinFlipper.cs`: Core coin flip logic, side enum, text formatting, and terminal UI rendering helpers.
-- `csharp/coinflip/shared/Tests/`: Unit tests validating coin flip randomness, text conversion, and rendering helpers.
+- `csharp/coinflip/shared/Tests/`: Unit tests validating coin flip randomness, text conversion, and terminal rendering helpers (including both Heads and Tails layouts).

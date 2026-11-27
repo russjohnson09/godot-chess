@@ -61,6 +61,14 @@ public class CoinFlipLibTests
     }
 
     [TestMethod]
+    public void TestRenderTerminalTails()
+    {
+        var rendered = CoinFlipper.RenderTerminal(CoinSide.Tails);
+        Assert.IsTrue(rendered.Contains("TAILS"));
+        Assert.IsTrue(rendered.Contains("┌─────────────────┐"));
+    }
+
+    [TestMethod]
     public void TestRenderWelcome()
     {
         var welcome = CoinFlipper.RenderWelcome();
