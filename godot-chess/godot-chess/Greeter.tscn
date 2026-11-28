@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bf1q0dpbp438d"]
+
+[ext_resource type="Script" uid="uid://c1yk6un8645tp" path="res://greeter.gd" id="1_nke7n"]
+
+[node name="Greeter" type="Node2D" unique_id=601142562]
+script = ExtResource("1_nke7n")
+
+[node name="RustGreeter" type="RustGreeter" parent="." unique_id=149762809]
+
+[node name="Label" type="Label" parent="." unique_id=737351922]
+offset_left = 68.0
+offset_top = 45.0
+offset_right = 108.0
+offset_bottom = 68.0
