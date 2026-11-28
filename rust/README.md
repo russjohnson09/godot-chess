@@ -1,4 +1,17 @@
+# Test
+```
+cargo test
+```
+
 # Build
+<!--   -w /src \
+ -->
+```
+docker run --rm \
+  -v "${PWD}:/src" \
+  rust:bookworm \
+  cargo build --release --target x86_64-unknown-linux-gnu
+
 
 cargo build and cargo build --release for windows if running on a windows machine.
 
@@ -6,10 +19,11 @@ I'm also building the android version on a windows machine.
 
 For ubuntu it is Ubuntu on WSL 2. This is also what I used for raspberry pi pico.
 
+```
 sudo apt update
 sudo apt install build-essential
 rustup target add x86_64-unknown-linux-gnu
-
+```
 
 
 ```
@@ -21,6 +35,7 @@ cargo build --target aarch64-linux-android
 
 
 
+ls /c/Users/russj/AppData/Local/Android/Sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/windows-x86_64/bin/clang
 
 Set CLANG_PATH and Cargo’s linker to the Clang binaries inside the Android NDK Godot is configured to use. Replace the paths and API level with the ones installed on your machine:
 

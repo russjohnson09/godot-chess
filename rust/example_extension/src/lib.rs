@@ -23,6 +23,20 @@ impl INode for RustGreeter {
 impl RustGreeter {
     #[func]
     fn greet(&self, name: GString) -> GString {
-        format!("Hello, {}!", name).into()
+        make_greeting(&name.to_string()).into()
+    }
+}
+
+fn make_greeting(name: &str) -> String {
+    format!("Hello, {name}!")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::make_greeting;
+
+    #[test]
+    fn greet_formats_name() {
+        assert_eq!(make_greeting("Godot"), "Hello, Godot!");
     }
 }
