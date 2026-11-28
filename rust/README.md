@@ -4,6 +4,13 @@ cargo test
 ```
 
 # Build
+```
+cargo build
+```
+
+For non-windows the build-extensions.yml github action is in use and the resulting artifact produced is downloaded and placed in the release directory.
+
+
 <!--   -w /src \
  -->
 ```
