@@ -7,10 +7,10 @@ cargo test
 <!--   -w /src \
  -->
 ```
-docker run --rm \
+<!-- docker run --rm \
   -v "${PWD}:/src" \
   rust:bookworm \
-  cargo build --release --target x86_64-unknown-linux-gnu
+  cargo build --release --target x86_64-unknown-linux-gnu -->
 
 
 cargo build and cargo build --release for windows if running on a windows machine.
@@ -26,16 +26,20 @@ rustup target add x86_64-unknown-linux-gnu
 ```
 
 
+ls /c/Users/russj/AppData/Local/Android/Sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/windows-x86_64/bin/aarch64-linux-android37-clang
+ls /c/Users/russj/AppData/Local/Android/Sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/windows-x86_64/bin/clang
+
 ```
 rustup target add aarch64-linux-android
 cargo build
-cargo build --target aarch64-linux-android
 
+CLANG_PATH="/c/Users/russj/AppData/Local/Android/Sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/windows-x86_64/bin/clang"
+CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="/c/Users/russj/AppData/Local/Android/Sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/windows-x86_64/bin/aarch64-linux-android37-clang"
+cargo build --target aarch64-linux-android
 ```
 
 
 
-ls /c/Users/russj/AppData/Local/Android/Sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/windows-x86_64/bin/clang
 
 Set CLANG_PATH and Cargo’s linker to the Clang binaries inside the Android NDK Godot is configured to use. Replace the paths and API level with the ones installed on your machine:
 
