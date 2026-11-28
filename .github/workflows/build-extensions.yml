@@ -42,7 +42,7 @@ jobs:
 
       - name: Install Android NDK
         if: matrix.name == 'android-arm64'
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - name: Install NDK and cargo-ndk
         if: matrix.name == 'android-arm64'
