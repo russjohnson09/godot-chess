@@ -5,4 +5,10 @@ reloadable = true
 
 [libraries]
 windows.debug.x86_64 =   "res://../../rust/example_extension/target/debug/rust_extension.dll"
-windows.release.x86_64 = "res://../../rust/example_extension/target/release/rust_extension.dll"
+windows.release.x86_64 = "res://../../rust/example_extension/target/debug/rust_extension.dll"
+
+android.debug.arm64 = "res://../../rust/example_extension/release/librust_extension.so"
+android.release.arm64 = "res://../../rust/example_extension/release/librust_extension.so"
+
+#linux.debug.x86_64 = "res://bin/librust_extension.so"
+#linux.release.x86_64 = "res://bin/librust_extension.so"
