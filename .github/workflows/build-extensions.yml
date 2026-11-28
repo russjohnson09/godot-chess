@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - "rust/example_extension/**"
+      - ".github/workflows/build-extensions.yml"
     branches: [main, feat/rust-godot-extension]
 
 jobs:
