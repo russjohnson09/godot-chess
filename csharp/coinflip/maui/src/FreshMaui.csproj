@@ -68,4 +68,8 @@
 		<None Remove="Tests\**" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\..\shared\CoinFlipLib.csproj" />
+	</ItemGroup>
+
 </Project>

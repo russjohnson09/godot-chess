@@ -1,5 +1,7 @@
 ﻿namespace FreshMaui;
 
+using CoinFlipLib;
+
 public partial class MainPage : ContentPage
 {
 	public MainPage()

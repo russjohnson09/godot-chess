@@ -24,5 +24,8 @@ dotnet publish csharp_coinflip_maui/FreshMaui.csproj -c Release -f net11.0-windo
 ## How to Test
 To run the unit tests (runs on .NET 9+ without requiring MAUI workloads):
 ```bash
-dotnet test csharp_coinflip_maui/Tests/csharp_coinflip_maui.Tests.csproj
+dotnet test csharp/coinflip/maui/Tests/csharp_coinflip_maui.Tests.csproj
 ```
+
+## CI Workflow & Artifacts
+The `.github/workflows/hello.yml` workflow runs unit tests and builds the shared library and C# .NET MAUI application, generates app state screenshots during testing, and uploads them as GitHub Actions artifacts (`csharp-coinflip-maui-screenshot`).

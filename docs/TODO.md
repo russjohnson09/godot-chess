@@ -1,1 +1,4 @@
-- [ ] Create a sharable library for csharp\coinflip\maui. The main coin flip CoinFlipper.cs class should work in a windows application and in terminal.
+- [x] Create shared class library project (`csharp/coinflip/shared/CoinFlipLib.csproj`) containing core `CoinFlipper` logic compatible with terminal and windows/MAUI applications.
+- [x] Drop use of csharp\coinflip\maui\src\CoinFlipper.cs and make use of the shared library csharp\coinflip\shared instead for this.
+- [x] Add steps to the hello.yml workflow to run the csharp coinflip maui app, take a screenshot, and include those screenshots as artifacts.
+- [x] Add unit test for `CoinFlipper.RenderTerminal(CoinSide.Tails)` and update documentation in `./docs/csharp_coin_flip_shared.md`.

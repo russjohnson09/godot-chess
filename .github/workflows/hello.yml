@@ -83,10 +83,18 @@ jobs:
             echo "no changes"
           fi
 
-      - name: Run tests
+      - name: Run C# CoinFlip MAUI Tests and Build
         run: |
-          # Replace with your project’s test command
-          echo "hi"
+          dotnet test csharp/coinflip/maui/Tests/csharp_coinflip_maui.Tests.csproj
+          dotnet build csharp/coinflip/shared/CoinFlipLib.csproj
+
+      - name: Upload C# CoinFlip MAUI Screenshot Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: csharp-coinflip-maui-screenshot
+          path: |
+            csharp/coinflip/maui/Tests/bin/Debug/net9.0/csharp_coinflip_maui_screenshot.*
+            csharp/coinflip/maui/**/*.png
 
       - name: Set up Node.js from .nvmrc
         uses: actions/setup-node@v4
@@ -114,24 +122,27 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
                   # https://opencode.ai/docs/cli/commands/
+          
+          MODEL: google/gemini-flash-lite-latest # I think this is 3.5? Anyways this is the primary one I'm using with gemini-4-hydrogen as a backup
+          # MODEL: google/gemini-3.5-flash-lite
+          # MODEL: google/gemini-4-hydrogen
 
-          # MODEL: google/gemini-flash-lite-latest
+          # 3.6-flash can be used as a third backup?
+          # MODEL: google/gemini-3.6-flash # npx opencode run --model "google/gemini-3.6-flash" --auto  "hi"
+
           # MODEL: google/gemini-3.1-flash-lite
 
           # npx opencode run --model "google/gemini-flash-latest" --auto  "hi"
           # MODEL: google/gemini-flash-latest
           # npx opencode run --model "google/gemini-4-hydrogen" --auto  "hi"
 
-          MODEL: google/gemini-4-hydrogen
-
-          MODEL: google/gemini-flash-lite-latest # I think this is 3.5?
-          MODEL: google/gemini-3.5-flash-lite
 
 
-          MODEL: google/gemini-4-neon
+
+
+          # MODEL: google/gemini-4-neon
           
           # MODEL: google/gemini-3.8-flash
-          # MODEL: google/gemini-3.6-flash
 
           # not working
           # MODEL: google/gemini-3.1-flash-lite
